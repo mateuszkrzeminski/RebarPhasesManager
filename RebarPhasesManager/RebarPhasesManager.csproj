@@ -64,6 +64,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -78,8 +79,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelExtensionMethods.cs" />
+    <Compile Include="ModelExtensions.cs" />
     <Compile Include="PhaseManager.cs" />
+    <Compile Include="PhaseManager_data.cs" />
     <Compile Include="PhaseView.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

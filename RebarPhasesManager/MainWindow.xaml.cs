@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using Tekla.Structures;
+using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
 
 namespace RebarPhasesManager
@@ -30,27 +32,41 @@ namespace RebarPhasesManager
             phaseManager = FindResource("phaseManager") as PhaseManager;
         }
 
-        private void button_Set_Click(object sender, RoutedEventArgs e)
+        private void button_Select_Click(object sender, RoutedEventArgs e)
         {
-            phaseManager.SetTemporaryColor();
-
+            phaseManager.ReinitializePhaseViewList();
         }
 
-        private void button_Reset_Click(object sender, RoutedEventArgs e)
+        private void button_ModifyPhase_Click(object sender, RoutedEventArgs e)
         {
-            ModelObjectVisualization.ClearAllTemporaryStates();
-
+            
         }
 
-        public void Checked(object sender, RoutedEventArgs e)
+        private void checkBoxHeader_Click(object sender, RoutedEventArgs e)
         {
-              phaseManager.SetTemporaryColor();
+            var chkSelectAll = sender as CheckBox;
+            var firstCol = dataGrid.Columns.OfType<DataGridTemplateColumn>().FirstOrDefault(c => c.DisplayIndex == 0);
+            if (chkSelectAll == null || firstCol == null || dataGrid?.Items == null)
+            {
+                return;
+            }
+            foreach (var item in dataGrid.Items)
+            {
+                var chBx = firstCol.GetCellContent(item);
+
+                if (chBx == null)
+                {
+                    continue;
+                }
+                //chBx.IsChecked = chkSelectAll.IsChecked;
+            }
         }
 
-        public void Unchecked(object sender, RoutedEventArgs e)
+        private void checkBox_Click(object sender, RoutedEventArgs e)
         {
               phaseManager.SetTemporaryColor();
         }
 
     }
+
 }

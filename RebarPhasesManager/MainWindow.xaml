@@ -6,57 +6,64 @@
         xmlns:local="clr-namespace:RebarPhasesManager"
         mc:Ignorable="d"
         Title="Rebar Phases Manager"
-        Width="550" MinWidth="550" MaxWidth="1000"
-        Height="400" MinHeight="400" MaxHeight="800">
+        Width="600" MinWidth="600" MaxWidth="1000"
+        Height="350" MinHeight="350" MaxHeight="800">
     <Window.Resources>
         <local:PhaseManager x:Key="phaseManager"/>
-        <!--DataTemplate for the Phase Color column. -->
     </Window.Resources>
+    
     <Grid DataContext="{StaticResource ResourceKey=phaseManager}">
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="110"/>
         </Grid.ColumnDefinitions>
 
         <DataGrid x:Name="dataGrid" ItemsSource="{Binding PhaseViewList}"
                   AutoGenerateColumns="False"
                   VerticalGridLinesBrush="LightGray" BorderBrush="LightGray"
                   FontSize="11" RowHeight="25" GridLinesVisibility="Vertical"
-                  ColumnWidth="*" Height="Auto" VerticalAlignment="Top" >
+                  ColumnWidth="*" Height="Auto" VerticalAlignment="Top"
+                  SelectionMode="Single" SelectedItem="{Binding SelectedPhaseView, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" ColumnHeaderHeight="28">
   
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Visible" MinWidth="45" Width="45">
+                <DataGridTemplateColumn MinWidth="60" Width="60">
+                    <DataGridTemplateColumn.HeaderTemplate>
+                        <DataTemplate>
+                            <CheckBox Name="checkBoxHeader" Click="checkBoxHeader_Click" IsThreeState="True">Visible</CheckBox>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Visible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Checked="Checked" Unchecked="Unchecked"/>
+                            <CheckBox Name="chechbox" Click="checkBox_Click" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Visible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
+                
 
                 <DataGridTemplateColumn Header="Color" Width="40" MinWidth="40">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Background="{Binding HexColor}"/>
+                            <StackPanel Background="{Binding HexColor, Mode=OneWay}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Number" Width="50" MinWidth="50"
-                                    Binding="{Binding Number}"/>
-                <DataGridTextColumn Header="Name" Width="70" MinWidth="70"
-                                    Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Comment" MinWidth="125"
-                                    Binding="{Binding Comment}"/>
+                <DataGridTextColumn Header="Number" Width="70" MinWidth="70"
+                                    Binding="{Binding Number, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Name" Width="90" MinWidth="90"
+                                    Binding="{Binding Name, Mode=OneWay}"/>
+                <DataGridTextColumn Header="Comment" MinWidth="100"
+                                    Binding="{Binding Comment, Mode=OneWay}"/>
                 <DataGridTextColumn Header="Current"  Width="55" MinWidth="55"
-                                    Binding="{Binding Current}"/>
+                                    Binding="{Binding Current, Mode=OneWay}"/>
             </DataGrid.Columns>
         </DataGrid>
 
         <StackPanel Orientation="Vertical" Grid.Column="1">
-            <Button x:Name="button_Show" Content="Set" Margin="10,10,10,0" Click="button_Set_Click"/>
-            <Button x:Name="button_Reset" Content="Reset" Margin="10" Click="button_Reset_Click"/>
+            <Button x:Name="button_Select" Content="Select" Margin="10,10,10,0" Click="button_Select_Click"/>
+            <Button x:Name="button_ModifyPhase" Content="Modify Phase" Margin="10,10,10,0" Click="button_ModifyPhase_Click" IsEnabled="True"/>
         </StackPanel>
 
     </Grid>

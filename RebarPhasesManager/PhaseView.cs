@@ -12,6 +12,7 @@ namespace RebarPhasesManager
 {
     class PhaseView
     {
+
         public bool Visible { get; set; }
         public string HexColor { get; private set; }
         public Color TeklaColor { get; private set; }
@@ -20,7 +21,7 @@ namespace RebarPhasesManager
         public string Comment { get; private set; }
         public int Current { get; private set; }
 
-        public List<Reinforcement> ReinforcementObjectsList { get; private set; }
+        public List<Reinforcement> ReinforcementObjectsList { get; set; }
 
         public PhaseView (bool visible, string hexColor, Color teklaColor, int number, string name, string comment, int current, List<Reinforcement> reinforcementObjectsList)
         {
