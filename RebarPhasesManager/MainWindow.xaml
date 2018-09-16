@@ -4,21 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RebarPhasesManager"
+        xmlns:viewmodel="clr-namespace:RebarPhasesManager.ViewModel"
         mc:Ignorable="d"
         Title="Rebar Phases Manager"
         Width="600" MinWidth="600" MaxWidth="1000"
         Height="350" MinHeight="350" MaxHeight="800">
     <Window.Resources>
-        <local:PhaseManager x:Key="phaseManager"/>
+        
     </Window.Resources>
-    
-    <Grid DataContext="{StaticResource ResourceKey=phaseManager}">
+
+    <Grid DataContext="{StaticResource mainViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="110"/>
+            <ColumnDefinition Width="120"/>
         </Grid.ColumnDefinitions>
 
         <DataGrid x:Name="dataGrid" ItemsSource="{Binding PhaseViewList}"
@@ -26,7 +27,7 @@
                   VerticalGridLinesBrush="LightGray" BorderBrush="LightGray"
                   FontSize="11" RowHeight="25" GridLinesVisibility="Vertical"
                   ColumnWidth="*" Height="Auto" VerticalAlignment="Top"
-                  SelectionMode="Single" SelectedItem="{Binding SelectedPhaseView, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" ColumnHeaderHeight="28">
+                  SelectionMode="Single" SelectedItem="{Binding SelectedPhaseItem, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" ColumnHeaderHeight="28">
   
             <DataGrid.Columns>
                 <DataGridTemplateColumn MinWidth="60" Width="60">
@@ -62,8 +63,22 @@
         </DataGrid>
 
         <StackPanel Orientation="Vertical" Grid.Column="1">
-            <Button x:Name="button_Select" Content="Select" Margin="10,10,10,0" Click="button_Select_Click"/>
-            <Button x:Name="button_ModifyPhase" Content="Modify Phase" Margin="10,10,10,0" Click="button_ModifyPhase_Click" IsEnabled="True"/>
+            <GroupBox x:Name="rebarsGroupBox" Header="Analyzed rebars">
+                <StackPanel>
+                    <Button x:Name="buttonAdd" Content="Add" />
+                    <Button x:Name="buttonRemove" Content="Remove" />
+                    <Button x:Name="buttonModify" Content="Modify phase" />
+                    <Button x:Name="buttonSelect" Content="Select by phase" />
+                </StackPanel>
+            </GroupBox>
+
+            <GroupBox x:Name="phaseGroupBox" Header="Phases">
+                <StackPanel>
+                    <Button x:Name="buttonAddToList" Content="Add to list" IsEnabled="False" />
+                    <Button x:Name="buttonRemoveFromList" Content="Remove from list" IsEnabled="False" />
+                </StackPanel>
+            </GroupBox>
+
         </StackPanel>
 
     </Grid>

@@ -5,9 +5,9 @@ using System.Linq;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
 
-namespace RebarPhasesManager
+namespace RebarPhasesManager.Model
 {
-    partial class PhaseManager
+    public class ProjectData
     {
         string[] hexColors = {  "#ff0000", "#ffff00", "#55ff00", "#2b00ff", "#00ff80", "#00aaff", "#ff00ff",
                                 "#ff8080", "#ffea80", "#aaff80", "#9580ff", "#80ffbf", "#80d5ff", "#ff80ff",
@@ -69,5 +69,11 @@ namespace RebarPhasesManager
             { "97", "Misc2" },
             { "98", "Misc3" }
         };
+
+        public static void testMetody()
+        {
+            string hexColor = "#ff0000";
+            double duobleColor = Double.TryParse()
+        }
     }
 }

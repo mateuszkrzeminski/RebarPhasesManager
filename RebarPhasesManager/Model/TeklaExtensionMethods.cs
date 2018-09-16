@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using Tekla.Structures.Model;
 
 
-namespace RebarPhasesManager
+namespace RebarPhasesManager.Model
 {
-    public static class ModelExtensionMethods
+    public static class TeklaExtensionMethods
     {
         public static Phase WhatIsMyPhase(this ModelObject mO)
         {

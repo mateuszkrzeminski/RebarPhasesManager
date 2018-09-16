@@ -64,7 +64,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ViewModel.cs" />
+    <Compile Include="Model\MainModel.cs" />
+    <Compile Include="Model\RebarsSelector.cs" />
+    <Compile Include="Model\RebarVisualizator.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\ObservedObject.cs" />
+    <Compile Include="ViewModel\PhaseItemViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -79,10 +84,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ModelExtensions.cs" />
-    <Compile Include="PhaseManager.cs" />
-    <Compile Include="PhaseManager_data.cs" />
-    <Compile Include="PhaseView.cs" />
+    <Compile Include="Model\TeklaExtensionMethods.cs" />
+    <Compile Include="Model\TeklaConnector.cs" />
+    <Compile Include="Model\ProjectData.cs" />
+    <Compile Include="Model\PhaseItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -109,6 +114,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
