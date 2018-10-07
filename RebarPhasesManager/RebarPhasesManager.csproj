@@ -86,7 +86,7 @@
   <ItemGroup>
     <Compile Include="Model\TeklaExtensionMethods.cs" />
     <Compile Include="Model\TeklaConnector.cs" />
-    <Compile Include="Model\ProjectData.cs" />
+    <Compile Include="Model\MainModel_data.cs" />
     <Compile Include="Model\PhaseItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

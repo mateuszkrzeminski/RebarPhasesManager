@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Windows;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -42,7 +43,8 @@ namespace RebarPhasesManager.Model
                 }
                 catch (Exception)
                 {
-                    throw;
+                    MessageBox.Show("No rebars selected");
+                    return;
                 }
             }
         }

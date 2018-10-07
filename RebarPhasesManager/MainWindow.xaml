@@ -13,7 +13,7 @@
         
     </Window.Resources>
 
-    <Grid DataContext="{StaticResource mainViewModel}">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>

@@ -11,41 +11,63 @@ using Tekla.Structures.Model.UI;
 
 namespace RebarPhasesManager.Model
 {
-    class MainModel
+    partial class MainModel
     {
         #region Members
-        private RebarsSelector rebarsSelector;
+        private RebarsSelector rebarsSelector = new RebarsSelector();
+        private Queue<Color> colors = new Queue<Color>(teklaColors);
+
+        Tekla.Structures.Model.Model myModel;
         #endregion
 
         #region Properties
-        public List<PhaseItem> PhaseItemList { get; private set; }
+        public List<PhaseItem> PhaseItemList { get; private set; } = new List<PhaseItem>();
         public PhaseItem SelectedPhaseItem { get; set; }
-        public ArrayList SelectedRebars
-        {
-            get
-            {
-                return new ArrayList(rebarsSelector.Cast<object>().ToArray());
-            }
-        }
-        #endregion
+         #endregion
+
+        #region Construction
         public MainModel()
         {
-            rebarsSelector = new RebarsSelector();
+            myModel = new Tekla.Structures.Model.Model();
         }
-        #region Construction
-
         #endregion
 
         #region Methods
-
         public void AddRebars()
         {
-
+            if (PhaseItemList.Count != 0)
+            {
+                foreach (Reinforcement rebar in rebarsSelector)
+                {
+                    Phase phase = rebar.WhatIsMyPhase();
+                    foreach (PhaseItem phaseItem in PhaseItemList)
+                    {
+                        if (phase == phaseItem.Phase)
+                            phaseItem.AddRebar(rebar);
+                        else
+                        {
+                            AddPhaseItem(phase, new List<Reinforcement>() { rebar });
+                        }
+                    }
+                }
+            }
+            else
+            {
+                createPhaseItemList();
+            }
         }
 
         public void RemoveRebars()
         {
-
+            foreach (Reinforcement rebar in rebarsSelector)
+            {
+                Phase phase = rebar.WhatIsMyPhase();
+                foreach (PhaseItem phaseItem in PhaseItemList)
+                {
+                    if (phase == phaseItem.Phase)
+                        phaseItem.RemoveRebar(rebar);
+                }
+            }
         }
 
         public void ModifyPhase()
@@ -55,84 +77,30 @@ namespace RebarPhasesManager.Model
 
         public void SelectByPhase()
         {
-            rebarsSelector.SelectRebars(SelectedPhaseItem.RebarsList);
+            rebarsSelector.SelectRebars(new ArrayList(SelectedPhaseItem.RebarsList));
         }
 
-        private void createPhaseViewList(List<Reinforcement> rebarsList)
+        public void AddPhaseItem(Phase phase, List<Reinforcement> rebarList)
         {
+            PhaseItemList.Add(new PhaseItem(phase, colors.Dequeue(), rebarList));
+        }
 
-            var queryReinforcemenByPhase =
-                (from rf in rebarsList
-                 let phase = rf.WhatIsMyPhase()
-                 group rf by new { number = phase.PhaseNumber, name = phase.PhaseName, comment = phase.WhatIsMyUserComment(PhaseCodes), current = phase.IsCurrentPhase }
-                ).OrderBy(o => o.Key.number).ToList();
 
-            phaseViewList = new List<PhaseView>();
+        private void createPhaseItemList()
+        {
+            IEnumerable<Reinforcement> selectedRebars = rebarsSelector.Cast<Reinforcement>();
 
-            foreach (var phaseGroup in queryReinforcemenByPhase)
+            IEnumerable<IGrouping<int, Reinforcement>> rebarsByPhase =
+                (from rebar in selectedRebars
+                 let phase = rebar.WhatIsMyPhase()
+                 group rebar by phase.PhaseNumber);
+
+            foreach (var phaseGroup in rebarsByPhase)
             {
-                List<Reinforcement> reinforcementlist = new List<Reinforcement>();
-                foreach (Reinforcement rf in phaseGroup)
-                    reinforcementlist.Add(rf);
-                int index = queryReinforcemenByPhase.IndexOf(phaseGroup);
-                phaseViewList.Add(new PhaseView(true, hexColors[index], teklaColors[index], phaseGroup.Key.number, phaseGroup.Key.name, phaseGroup.Key.comment, phaseGroup.Key.current, reinforcementlist));
+                AddPhaseItem(phaseGroup.First().WhatIsMyPhase(), phaseGroup.ToList<Reinforcement>());
             }
         }
 
         #endregion
-
-
-
-
-
-
-        private void initializePhaseViewList()
-        {
-            modelObjectsEnumerator = getSelectedModelObjectsEnumerator();
-            createReinforcementList();
-            createPhaseViewList(reinforcements);
-
-            SetTemporaryColor();
-        }
-
-        public void ReinitializePhaseViewList()
-        {
-            ModelObjectVisualization.ClearAllTemporaryStates();
-            phaseViewList = null;
-            OnPropertyChanged("PhaseViewList");
-            getModelObjectsEnumerator();
-            createReinforcementList();
-            createPhaseViewList(reinforcements);
-            OnPropertyChanged("PhaseViewList");
-
-            SetTemporaryColor();
-        }
-
-        private void DUPAcreatePhaseViewList(List<Reinforcement> reinforcementList)
-        {
-            phaseViewList = null;
-
-            var queryReinforcemenByPhase =
-                (from rf in reinforcementList
-                 let phase = rf.WhatIsMyPhase()
-                 group rf by new { number = phase.PhaseNumber, name = phase.PhaseName, comment = phase.WhatIsMyUserComment(PhaseCodes), current = phase.IsCurrentPhase }
-                ).OrderBy(o => o.Key.number).ToList();
-
-            phaseViewList = new List<PhaseView>();
-
-            foreach (var phaseGroup in queryReinforcemenByPhase)
-            {
-                List<Reinforcement> reinforcementlist = new List<Reinforcement>();
-                foreach (Reinforcement rf in phaseGroup)
-                    reinforcementlist.Add(rf);
-                int index = queryReinforcemenByPhase.IndexOf(phaseGroup);
-                phaseViewList.Add(new PhaseView(true, hexColors[index], teklaColors[index], phaseGroup.Key.number, phaseGroup.Key.name, phaseGroup.Key.comment, phaseGroup.Key.current, reinforcementlist));
-            }
-        }
-
-
-
-
-
     }
 }
