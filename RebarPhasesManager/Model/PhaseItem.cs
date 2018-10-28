@@ -28,24 +28,36 @@ namespace RebarPhasesManager.Model
         public bool Visible { get; set; } = true;
         public Color Color { get; private set; }
         public List<Reinforcement> RebarsList { get; private set; }
-        public int CountRebars
-        {
-            get
-            {
-                return RebarsList.Count;
-            }
-        }
+        //public int CountRebars
+        //{
+        //    get
+        //    {
+        //        return RebarsList.Count;
+        //    }
+        //}
         #endregion
 
         #region Methods
-        public void AddRebar(Reinforcement rf)
+        public void AddRebar(Reinforcement rebar)
         {
-            RebarsList.Add(rf);
+            RebarsList.Add(rebar);
         }
 
-        public void RemoveRebar(Reinforcement rf)
+        public bool RemoveRebar(Reinforcement rebar)
         {
-            RebarsList.Remove(rf);
+            if (RebarsList.RemoveAll(r => r.Identifier.ID == rebar.Identifier.ID) > 0)
+                return true;
+            else return false;
+        }
+
+        public bool ContainsRebar(Reinforcement rebar)
+        {
+            foreach (Reinforcement rf in RebarsList)
+            {
+                if (rf.Equals(rebar))
+                    return true;
+            }
+            return false;
         }
 
 

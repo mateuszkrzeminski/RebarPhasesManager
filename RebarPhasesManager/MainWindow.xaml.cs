@@ -27,6 +27,7 @@ namespace RebarPhasesManager
         public MainWindow()
         {
             InitializeComponent();
+            test = new Model.MainModel();
         }
 
         private void button_Select_Click(object sender, RoutedEventArgs e)
