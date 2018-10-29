@@ -29,18 +29,6 @@ namespace RebarPhasesManager.Model
         public MainModel()
         {
             myModel = new Tekla.Structures.Model.Model();
-
-            AddRebars();
-            RemoveRebars();
-            AddRebars();
-            RemoveRebars();
-            AddRebars();
-            RemoveRebars();
-            AddRebars();
-            RemoveRebars();
-            AddRebars();
-            
-
         }
         #endregion
 

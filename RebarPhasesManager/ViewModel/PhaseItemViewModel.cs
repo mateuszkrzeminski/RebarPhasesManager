@@ -16,9 +16,9 @@ namespace RebarPhasesManager.ViewModel
     class PhaseItemViewModel : ObservedObject
     {
         #region Construction
-        public PhaseItemViewModel(bool visible, string hexColor, int number, string name, string comment, int current)
+        public PhaseItemViewModel(PhaseItem phaseItem)
         {
-            
+            _phaseItem = phaseItem;
         }
         #endregion
 
@@ -26,80 +26,45 @@ namespace RebarPhasesManager.ViewModel
         private PhaseItem _phaseItem;
         #endregion
 
-        //#region Properties
-        //public PhaseItem PhaseItem
-        //{
-        //    get { return _phaseItem; }
-        //    set { _phaseItem = value; }
-        //}
+        #region Properties
+        
+        public bool Visible
+        {
+            get { return _phaseItem.Visible; }
+            set
+            {
+                if (_phaseItem.Visible != value)
+                {
+                    _phaseItem.Visible = value;
+                    OnPropertyChanged("Visible");
+                }
+            }
+        }
 
-        //public bool Visible
-        //{
-        //    get { return PhaseItem.Visible; }
-        //    set
-        //    {
-        //        if (PhaseItem.Visible != value)
-        //        {
-        //            PhaseItem.Visible = value;
-        //            OnPropertyChanged("Visible");
-        //        }
-        //    }
-        //}
+        public Color Color
+        {
+            get { return _phaseItem.Color; }
+        }
+        
+        public int Number
+        {
+            get { return _phaseItem.Phase.PhaseNumber; }
+        }
 
+        public string Name
+        {
+            get { return _phaseItem.Phase.PhaseName; }
+        }
 
+        public string Comment
+        {
+            get { return _phaseItem.Phase.PhaseComment; }
+        }
 
-
-        //public int Number
-        //{
-        //    get { return PhaseItem.Number; }
-        //    set
-        //    {
-        //        if (PhaseItem.Number != value)
-        //        {
-        //            PhaseItem.Number = value;
-        //            OnPropertyChanged("Number");
-        //        }
-        //    }
-        //}
-
-        //public string Name
-        //{
-        //    get { return PhaseItem.Name; }
-        //    set
-        //    {
-        //        if (PhaseItem.Name != value)
-        //        {
-        //            PhaseItem.Name = value;
-        //            OnPropertyChanged("Name");
-        //        }
-        //    }
-        //}
-
-        //public string Comment
-        //{
-        //    get { return PhaseItem.Comment; }
-        //    set
-        //    {
-        //        if (PhaseItem.Comment != value)
-        //        {
-        //            PhaseItem.Comment = value;
-        //            OnPropertyChanged("Comment");
-        //        }
-        //    }
-        //}
-
-        //public int Current
-        //{
-        //    get { return PhaseItem.Current; }
-        //    set
-        //    {
-        //        if (PhaseItem.Current != value)
-        //        {
-        //            PhaseItem.Current = value;
-        //            OnPropertyChanged("Current");
-        //        }
-        //    }
-        //}
-        //#endregion
+        public int Current
+        {
+            get { return _phaseItem.Phase.IsCurrentPhase; }
+        }
+        #endregion
     }
 }
