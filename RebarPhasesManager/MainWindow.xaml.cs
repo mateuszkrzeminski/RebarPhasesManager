@@ -22,34 +22,10 @@ namespace RebarPhasesManager
     /// </summary>
     public partial class MainWindow : Window
     {
-        RebarPhasesManager.Model.MainModel test;
-
         public MainWindow()
         {
             InitializeComponent();
-            test = new Model.MainModel();
         }
-
-        private void button_Select_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void button_ModifyPhase_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
-        private void checkBoxHeader_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void checkBox_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
     }
 
 }

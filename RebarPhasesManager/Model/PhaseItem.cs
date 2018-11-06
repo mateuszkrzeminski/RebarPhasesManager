@@ -28,13 +28,7 @@ namespace RebarPhasesManager.Model
         public bool Visible { get; set; } = true;
         public Color Color { get; private set; }
         public List<Reinforcement> RebarsList { get; private set; }
-        //public int CountRebars
-        //{
-        //    get
-        //    {
-        //        return RebarsList.Count;
-        //    }
-        //}
+        public int CountRebars { get { return RebarsList.Count; } }
         #endregion
 
         #region Methods
@@ -59,7 +53,6 @@ namespace RebarPhasesManager.Model
             }
             return false;
         }
-
 
         #endregion
 

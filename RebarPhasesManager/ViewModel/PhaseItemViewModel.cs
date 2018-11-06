@@ -41,30 +41,11 @@ namespace RebarPhasesManager.ViewModel
             }
         }
 
-        public Color Color
-        {
-            get { return _phaseItem.Color; }
-        }
-        
-        public int Number
-        {
-            get { return _phaseItem.Phase.PhaseNumber; }
-        }
-
-        public string Name
-        {
-            get { return _phaseItem.Phase.PhaseName; }
-        }
-
-        public string Comment
-        {
-            get { return _phaseItem.Phase.PhaseComment; }
-        }
-
-        public int Current
-        {
-            get { return _phaseItem.Phase.IsCurrentPhase; }
-        }
+        public Color Color { get { return _phaseItem.Color; } }
+        public int Number { get { return _phaseItem.Phase.PhaseNumber; } }
+        public string Name { get { return _phaseItem.Phase.PhaseName; } }
+        public string Comment { get { return _phaseItem.Phase.PhaseComment; } }
+        public int Current { get { return _phaseItem.Phase.IsCurrentPhase; } }
         #endregion
     }
 }

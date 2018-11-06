@@ -10,10 +10,11 @@
         Width="600" MinWidth="600" MaxWidth="1000"
         Height="350" MinHeight="350" MaxHeight="800">
     <Window.Resources>
-        
+        <viewmodel:MainViewModel x:Key="mainViewModel"/>
+        <local:TeklaColorToColorConverter x:Key="colorConverter"/>
     </Window.Resources>
 
-    <Grid>
+    <Grid DataContext="{StaticResource mainViewModel}">
         <Grid.RowDefinitions>
             <RowDefinition/>
         </Grid.RowDefinitions>
@@ -22,23 +23,23 @@
             <ColumnDefinition Width="120"/>
         </Grid.ColumnDefinitions>
 
-        <DataGrid x:Name="dataGrid" ItemsSource="{Binding PhaseViewList}"
+        <DataGrid x:Name="dataGrid" ItemsSource="{Binding PhaseItemsViewModelList}"
                   AutoGenerateColumns="False"
                   VerticalGridLinesBrush="LightGray" BorderBrush="LightGray"
                   FontSize="11" RowHeight="25" GridLinesVisibility="Vertical"
                   ColumnWidth="*" Height="Auto" VerticalAlignment="Top"
-                  SelectionMode="Single" SelectedItem="{Binding SelectedPhaseItem, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}" ColumnHeaderHeight="28">
+                  SelectionMode="Single" ColumnHeaderHeight="28">
   
             <DataGrid.Columns>
                 <DataGridTemplateColumn MinWidth="60" Width="60">
                     <DataGridTemplateColumn.HeaderTemplate>
                         <DataTemplate>
-                            <CheckBox Name="checkBoxHeader" Click="checkBoxHeader_Click" IsThreeState="True">Visible</CheckBox>
+                            <CheckBox Name="checkBoxHeader" IsThreeState="True">Visible</CheckBox>
                         </DataTemplate>
                     </DataGridTemplateColumn.HeaderTemplate>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <CheckBox Name="chechbox" Click="checkBox_Click" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Visible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                            <CheckBox Name="chechbox" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Visible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -47,7 +48,11 @@
                 <DataGridTemplateColumn Header="Color" Width="40" MinWidth="40">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Background="{Binding HexColor, Mode=OneWay}"/>
+                            <StackPanel>
+                                <StackPanel.Background>
+                                    <SolidColorBrush Color="{Binding Color, Converter={StaticResource colorConverter} }"/>
+                                </StackPanel.Background>
+                            </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -65,10 +70,10 @@
         <StackPanel Orientation="Vertical" Grid.Column="1">
             <GroupBox x:Name="rebarsGroupBox" Header="Analyzed rebars">
                 <StackPanel>
-                    <Button x:Name="buttonAdd" Content="Add" />
-                    <Button x:Name="buttonRemove" Content="Remove" />
-                    <Button x:Name="buttonModify" Content="Modify phase" />
-                    <Button x:Name="buttonSelect" Content="Select by phase" />
+                    <Button x:Name="buttonAdd" Content="Add" Command="{Binding AddRebars}"/>
+                    <Button x:Name="buttonRemove" Content="Remove" Command="{Binding RemoveRebars}" />
+                    <Button x:Name="buttonModify" Content="Modify phase" Command="{Binding ModifyPhase}" />
+                    <Button x:Name="buttonSelect" Content="Select by phase" Command="{Binding SelectByPhase}" />
                 </StackPanel>
             </GroupBox>
 
