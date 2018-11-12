@@ -19,6 +19,7 @@ namespace RebarPhasesManager.ViewModel
         public PhaseItemViewModel(PhaseItem phaseItem)
         {
             _phaseItem = phaseItem;
+            _phaseItem.NoOfRebarsChanged += NoOfRebarsChanged;
         }
         #endregion
 
@@ -46,6 +47,12 @@ namespace RebarPhasesManager.ViewModel
         public string Name { get { return _phaseItem.Phase.PhaseName; } }
         public string Comment { get { return _phaseItem.Phase.PhaseComment; } }
         public int Current { get { return _phaseItem.Phase.IsCurrentPhase; } }
+        public int CountRebars { get { return _phaseItem.RebarList.Count(); } }
         #endregion
+
+        private void NoOfRebarsChanged(object sender, EventArgs e)
+        {
+            OnPropertyChanged("CountRebars");
+        }
     }
 }

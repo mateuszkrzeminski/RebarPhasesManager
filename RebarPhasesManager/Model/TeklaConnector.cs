@@ -25,8 +25,6 @@ namespace RebarPhasesManager.Model
         public TeklaConnector()
         {
             Tekla.Structures.Model.Model myModel = new Tekla.Structures.Model.Model();
-
-            //initializePhaseViewList();
             //RegisterEventHandler();
         }
         #endregion

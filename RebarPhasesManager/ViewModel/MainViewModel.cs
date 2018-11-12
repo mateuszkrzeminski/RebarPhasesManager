@@ -24,14 +24,28 @@ namespace RebarPhasesManager.ViewModel
 
         #region Members
         private MainModel _mainModel = new MainModel();
+        private bool? allVisible;
+        private bool allVisibleChanging;
         #endregion
 
         #region Properties
         public ObservableCollection<PhaseItemViewModel> PhaseItemsViewModelList { get; } = new ObservableCollection<PhaseItemViewModel>();
         public PhaseItemViewModel SelectedPhaseItem { get; set; }
+
+        public bool? AllVisible
+        {
+            get { return allVisible; }
+            set
+            {
+                if (allVisible != value)
+                    allVisible = value;
+                AllSelectedChanged();
+                OnPropertyChanged("AllVisible");
+            }
+        }
         #endregion
 
-        #region Commands
+            #region Commands
         private ICommand addRebars;
         public ICommand AddRebars
         {
@@ -78,9 +92,49 @@ namespace RebarPhasesManager.ViewModel
         #endregion
 
         #region Methods
-        public void Add()
+        private void AllSelectedChanged()
         {
-            _mainModel.AddRebars();
+            if (allVisibleChanging) return;
+
+            try
+            {
+                allVisibleChanging = true;
+                if (AllVisible == true)
+                {
+                    foreach (PhaseItemViewModel phaseItemViewModel in PhaseItemsViewModelList)
+                        phaseItemViewModel.Visible = true;
+                }
+                else if (AllVisible == false)
+                {
+                    foreach (PhaseItemViewModel phaseItemViewModel in PhaseItemsViewModelList)
+                        phaseItemViewModel.Visible = false;
+                }
+            }
+            finally
+            {
+                allVisibleChanging = false;
+            }
+        }
+
+        private void RecheckAllSelected()
+        {
+            if (allVisibleChanging) return;
+
+            try
+            {
+                allVisibleChanging = true;
+
+                if (PhaseItemsViewModelList.All(p => p.Visible))
+                    AllVisible = true;
+                else if (PhaseItemsViewModelList.All(p => !p.Visible))
+                    AllVisible = false;
+                else
+                    AllVisible = null;
+            }
+            finally
+            {
+                allVisibleChanging = false;
+            }
         }
 
         private void phaseItemListSynchronization(object sender, NotifyCollectionChangedEventArgs e)
@@ -90,7 +144,10 @@ namespace RebarPhasesManager.ViewModel
                 case NotifyCollectionChangedAction.Add:
                     PhaseItem addedPhaseItem = (PhaseItem)e.NewItems[0];
                     if (addedPhaseItem != null)
+                    {
                         PhaseItemsViewModelList.Add(new PhaseItemViewModel(addedPhaseItem));
+                        PhaseItemsViewModelList.Last().PropertyChanged += VisibleOnPropertyChanged;
+                    }
                     break;
                 //case NotifyCollectionChangedAction.Remove:
                 //    PhaseItem removedPhaseItem = (PhaseItem)e.OldItems[0];
@@ -98,6 +155,12 @@ namespace RebarPhasesManager.ViewModel
                 //        _PhaseItemsList.Remove(new PhaseItemViewModel(removedPhaseItem));
                 //    break;
             }
+        }
+
+        private void VisibleOnPropertyChanged(object sender, PropertyChangedEventArgs args)
+        {
+            if (args.PropertyName == nameof(PhaseItemViewModel.Visible))
+                RecheckAllSelected();
         }
         #endregion
 

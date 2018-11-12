@@ -27,4 +27,25 @@ namespace RebarPhasesManager
             throw new NotImplementedException();
         }
     }
+
+    public class HiddenRowConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            int noOfRebars = (int)value;
+            if (noOfRebars == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

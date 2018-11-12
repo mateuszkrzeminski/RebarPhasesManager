@@ -7,17 +7,16 @@ using Tekla.Structures.Model.UI;
 
 namespace RebarPhasesManager.Model
 {
-    partial class MainModel
+    public static class Data
     {
-        static string[] hexColors = { "#ff0000", "#ffff00", "#55ff00", "#2b00ff", "#00ff80", "#00aaff", "#ff00ff",
-                                "#ff8080", "#ffea80", "#aaff80", "#9580ff", "#80ffbf", "#80d5ff", "#ff80ff",
-                                "#ff4040", "#ffdf40", "#7fff40", "#6040ff", "#40ff9f", "#40bfff", "#ff40ff" };
-
-        static public Color[] teklaColors = { new Color(1,0,0), new Color(1,1,0), new Color(0.33,1,0),  new Color(0.17,0,1), new Color(0,1,0.5), new Color(0,0.66,1), new Color(1,0,1),
+        public static Color[] TeklaColors = { new Color(1,0,0), new Color(1,1,0), new Color(0.33,1,0),  new Color(0.17,0,1), new Color(0,1,0.5), new Color(0,0.66,1), new Color(1,0,1),
                                 new Color(1,0.5,0.5), new Color(1,0.91,0.5), new Color(0.66,1,0.5), new Color(0.58,0.5,1), new Color(0.5,1,0.75), new Color(0.5,0.83,1), new Color(1,0.5,1),
                                 new Color(1,0.25,0.25), new Color(1,0.87,0.25), new Color(0.5,1,0.25), new Color(0.38,0.25,1), new Color(0.25,1,0.62), new Color(0.25,0.75,1), new Color(1,0.25,1) };
 
-        public Dictionary<string, string> PhaseCodes = new Dictionary<string, string>()
+        public static Color InvisibleColor = new Color(0.5, 0.5, 0.5);
+        public static Color NotAnalyzedColor = new Color(0.3, 0.3, 0.3, 0.5);
+
+        public static Dictionary<string, string> PhaseCodes = new Dictionary<string, string>()
         {
             { "00", "CL" },
             { "01", "F" },

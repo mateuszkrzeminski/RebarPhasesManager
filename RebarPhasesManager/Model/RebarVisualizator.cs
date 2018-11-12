@@ -11,29 +11,21 @@ namespace RebarPhasesManager.Model
 {
     public static class RebarVisualizator
     {
-        //public static void SetTempColor(List<model)
-        //{
-        //    foreach (PhaseItem phaseItem in phaseItemList)
-        //    {
-        //        if (phaseItem.Visible)
-        //        {
-        //            List<ModelObject> modelObjects = new List<ModelObject>();
-        //            foreach (Reinforcement rf in phaseItem.RebarsList)
-        //            {
-        //                modelObjects.Add(rf);
-        //            }
-        //            ModelObjectVisualization.SetTemporaryState(modelObjects, phaseItem.TeklaColor);
-        //        }
-        //        else
-        //        {
-        //            List<ModelObject> modelObjects = new List<ModelObject>();
-        //            foreach (Reinforcement rf in phaseItem.RebarsList)
-        //            {
-        //                modelObjects.Add(rf);
-        //            }
-        //            ModelObjectVisualization.SetTemporaryState(modelObjects, new Color(0.5, 0.5, 0.5));
-        //        }
-        //    }
-        //}
+        public static void SetTempColor(List<Reinforcement> rebarList, Color color)
+        {
+            List<ModelObject> modelObjects = new List<ModelObject>();
+            foreach (Reinforcement rebar in rebarList)
+            {
+                modelObjects.Add(rebar);
+            }
+            ModelObjectVisualization.SetTemporaryState(modelObjects, color);
+        }
+
+        public static void SetTempColor(Reinforcement rebar, Color color)
+        {
+            List<ModelObject> modelObjects = new List<ModelObject>();
+            modelObjects.Add(rebar);
+            ModelObjectVisualization.SetTemporaryState(modelObjects, color);
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace RebarPhasesManager.Model
     {
         #region Members
         private RebarsSelector rebarsSelector = new RebarsSelector();
-        private Queue<Color> colors = new Queue<Color>(teklaColors);
+        private Queue<Color> colors = new Queue<Color>(Data.TeklaColors);
         private Tekla.Structures.Model.Model myModel;
         #endregion
 
@@ -87,7 +87,7 @@ namespace RebarPhasesManager.Model
 
         public void SelectByPhase()
         {
-            rebarsSelector.SelectRebars(new ArrayList(SelectedPhaseItem.RebarsList));
+            rebarsSelector.SelectRebars(new ArrayList(SelectedPhaseItem.RebarList));
         }
 
         public void AddPhaseItem(Phase phase, List<Reinforcement> rebarList)
@@ -99,10 +99,13 @@ namespace RebarPhasesManager.Model
         {
             IEnumerable<Reinforcement> selectedRebars = rebarsSelector.Cast<Reinforcement>();
 
-            IEnumerable<IGrouping<int, Reinforcement>> rebarsByPhase =
+            List<IGrouping<int, Reinforcement>> rebarsByPhase =
                 (from rebar in selectedRebars
                  let phase = rebar.WhatIsMyPhase()
-                 group rebar by phase.PhaseNumber);
+                 group rebar by phase.PhaseNumber)
+                 .OrderBy(o => o.Key).ToList();
+
+            ModelObjectVisualization.SetTemporaryStateForAll(Data.NotAnalyzedColor);
 
             foreach (var phaseGroup in rebarsByPhase)
             {

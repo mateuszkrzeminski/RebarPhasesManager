@@ -7,11 +7,12 @@
         xmlns:viewmodel="clr-namespace:RebarPhasesManager.ViewModel"
         mc:Ignorable="d"
         Title="Rebar Phases Manager"
-        Width="600" MinWidth="600" MaxWidth="1000"
+        Width="700" MinWidth="700" MaxWidth="1000"
         Height="350" MinHeight="350" MaxHeight="800">
     <Window.Resources>
         <viewmodel:MainViewModel x:Key="mainViewModel"/>
         <local:TeklaColorToColorConverter x:Key="colorConverter"/>
+        <local:HiddenRowConverter x:Key="hiddenConverter"/>
     </Window.Resources>
 
     <Grid DataContext="{StaticResource mainViewModel}">
@@ -29,20 +30,25 @@
                   FontSize="11" RowHeight="25" GridLinesVisibility="Vertical"
                   ColumnWidth="*" Height="Auto" VerticalAlignment="Top"
                   SelectionMode="Single" ColumnHeaderHeight="28">
-  
+
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding CountRebars, Converter={StaticResource hiddenConverter}}" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+
             <DataGrid.Columns>
-                <DataGridTemplateColumn MinWidth="60" Width="60">
-                    <DataGridTemplateColumn.HeaderTemplate>
+                <DataGridCheckBoxColumn MinWidth="60" Width="60" Binding="{Binding Visible, UpdateSourceTrigger=PropertyChanged}">
+                    <DataGridCheckBoxColumn.HeaderTemplate>
                         <DataTemplate>
-                            <CheckBox Name="checkBoxHeader" IsThreeState="True">Visible</CheckBox>
+                            <CheckBox IsChecked="{Binding Source={StaticResource mainViewModel}, Path=AllVisible}">Visible</CheckBox>
                         </DataTemplate>
-                    </DataGridTemplateColumn.HeaderTemplate>
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <CheckBox Name="chechbox" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Visible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                    </DataGridCheckBoxColumn.HeaderTemplate>
+                </DataGridCheckBoxColumn>
                 
 
                 <DataGridTemplateColumn Header="Color" Width="40" MinWidth="40">
@@ -64,6 +70,8 @@
                                     Binding="{Binding Comment, Mode=OneWay}"/>
                 <DataGridTextColumn Header="Current"  Width="55" MinWidth="55"
                                     Binding="{Binding Current, Mode=OneWay}"/>
+                <DataGridTextColumn Header="NoOfRebars"  Width="75" MinWidth="75"
+                                    Binding="{Binding CountRebars, Mode=OneWay}"/>
             </DataGrid.Columns>
         </DataGrid>
 
@@ -72,8 +80,8 @@
                 <StackPanel>
                     <Button x:Name="buttonAdd" Content="Add" Command="{Binding AddRebars}"/>
                     <Button x:Name="buttonRemove" Content="Remove" Command="{Binding RemoveRebars}" />
-                    <Button x:Name="buttonModify" Content="Modify phase" Command="{Binding ModifyPhase}" />
                     <Button x:Name="buttonSelect" Content="Select by phase" Command="{Binding SelectByPhase}" />
+                    <Button x:Name="buttonModify" Content="Modify phase" Command="{Binding ModifyPhase}" />
                 </StackPanel>
             </GroupBox>
 

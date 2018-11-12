@@ -5,7 +5,7 @@ namespace RebarPhasesManager.ViewModel
     public abstract class ObservedObject : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged(params string[] propertyName)
+        protected virtual void OnPropertyChanged(params string[] propertyName)
         {
             if (PropertyChanged != null)
             {
