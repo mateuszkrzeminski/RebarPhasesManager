@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace RebarPhasesManager.ViewModel
+namespace RebarPhaseManager.ViewModel
 {
     public abstract class ObservedObject : INotifyPropertyChanged
     {

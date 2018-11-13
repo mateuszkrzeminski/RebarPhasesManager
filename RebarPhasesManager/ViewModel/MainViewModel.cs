@@ -8,10 +8,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using RebarPhasesManager.Model;
+using RebarPhaseManager.Model;
 
 
-namespace RebarPhasesManager.ViewModel
+namespace RebarPhaseManager.ViewModel
 {
     class MainViewModel : ObservedObject
     {
@@ -30,7 +30,7 @@ namespace RebarPhasesManager.ViewModel
 
         #region Properties
         public ObservableCollection<PhaseItemViewModel> PhaseItemsViewModelList { get; } = new ObservableCollection<PhaseItemViewModel>();
-        public PhaseItemViewModel SelectedPhaseItem { get; set; }
+        public PhaseItemViewModel SelectedPhaseItem { private get; set; }
 
         public bool? AllVisible
         {
@@ -68,27 +68,27 @@ namespace RebarPhasesManager.ViewModel
             }
         }
 
-        private ICommand modifyPhase;
-        public ICommand ModifyPhase
-        {
-            get
-            {
-                if (modifyPhase == null)
-                    modifyPhase = new RelayCommand(o => _mainModel.ModifyPhase(), o => SelectedPhaseItem != null);
-                return modifyPhase;
-            }
-        }
-
         private ICommand selectByPhase;
         public ICommand SelectByPhase
         {
             get
             {
                 if (selectByPhase == null)
-                    selectByPhase = new RelayCommand(o => _mainModel.SelectByPhase(), o => SelectedPhaseItem != null);
+                    selectByPhase = new RelayCommand(o => _mainModel.SelectByPhase(SelectedPhaseItem.PhaseItem), o => SelectedPhaseItem != null);
                 return selectByPhase;
             }
         }
+        private ICommand modifyPhase;
+        public ICommand ModifyPhase
+        {
+            get
+            {
+                if (modifyPhase == null)
+                    modifyPhase = new RelayCommand(o => _mainModel.ModifyPhase(SelectedPhaseItem.PhaseItem), o => SelectedPhaseItem != null);
+                return modifyPhase;
+            }
+        }
+
         #endregion
 
         #region Methods

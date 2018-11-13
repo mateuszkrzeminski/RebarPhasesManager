@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
 
-namespace RebarPhasesManager.Model
+namespace RebarPhaseManager.Model
 {
     public static class RebarVisualizator
     {

@@ -9,9 +9,9 @@ using Tekla.Structures;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
 
-using RebarPhasesManager.Model;
+using RebarPhaseManager.Model;
 
-namespace RebarPhasesManager.ViewModel
+namespace RebarPhaseManager.ViewModel
 {
     class PhaseItemViewModel : ObservedObject
     {
@@ -28,7 +28,9 @@ namespace RebarPhasesManager.ViewModel
         #endregion
 
         #region Properties
-        
+
+        public PhaseItem PhaseItem { get { return _phaseItem; } }
+
         public bool Visible
         {
             get { return _phaseItem.Visible; }

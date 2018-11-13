@@ -11,7 +11,7 @@ using Tekla.Structures;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
 
-namespace RebarPhasesManager.Model
+namespace RebarPhaseManager.Model
 {
     class PhaseItem
     {
@@ -40,10 +40,7 @@ namespace RebarPhasesManager.Model
                 if (visible != value)
                 {
                     visible = value;
-                        if (value == true)
-                        RebarVisualizator.SetTempColor(RebarList, Color);
-                    else
-                        RebarVisualizator.SetTempColor(RebarList, Data.InvisibleColor);
+                    setTempColor();
                 }
             }
         }
@@ -57,7 +54,7 @@ namespace RebarPhasesManager.Model
         {
             RebarList.Add(rebar);
             OnNoOfRebarsChanged();
-            RebarVisualizator.SetTempColor(rebar, Color);
+            setTempColor(rebar);
         }
 
         public bool RemoveRebar(Reinforcement rebar)
@@ -79,6 +76,22 @@ namespace RebarPhasesManager.Model
                     return true;
             }
             return false;
+        }
+
+        private void setTempColor()
+        {
+            if (visible == true)
+                RebarVisualizator.SetTempColor(RebarList, Color);
+            else
+                RebarVisualizator.SetTempColor(RebarList, Data.InvisibleColor);
+        }
+
+        private void setTempColor(Reinforcement rebar)
+        {
+            if (visible == true)
+                RebarVisualizator.SetTempColor(rebar, Color);
+            else
+                RebarVisualizator.SetTempColor(rebar, Data.InvisibleColor);
         }
 
         #endregion

@@ -8,7 +8,7 @@ using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
 
 
-namespace RebarPhasesManager.Model
+namespace RebarPhaseManager.Model
 {
     public class TeklaConnector
     {

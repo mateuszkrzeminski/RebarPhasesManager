@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 14 for Windows Desktop
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RebarPhasesManager", "RebarPhasesManager\RebarPhasesManager.csproj", "{9D0D0C4D-EF4B-4722-9FAD-74297563D8AD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RebarPhaseManager", "RebarPhasesManager\RebarPhaseManager.csproj", "{9D0D0C4D-EF4B-4722-9FAD-74297563D8AD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -9,7 +9,7 @@ using Tekla.Structures;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
 
-namespace RebarPhasesManager.Model
+namespace RebarPhaseManager.Model
 {
     class RebarsSelector : IEnumerable
     {

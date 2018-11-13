@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Tekla.Structures.Model;
 
 
-namespace RebarPhasesManager.Model
+namespace RebarPhaseManager.Model
 {
     public static class TeklaExtensionMethods
     {

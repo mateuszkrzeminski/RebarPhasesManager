@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 
 
 
-namespace RebarPhasesManager
+namespace RebarPhaseManager
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml

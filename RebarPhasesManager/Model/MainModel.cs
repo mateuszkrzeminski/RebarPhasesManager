@@ -10,7 +10,7 @@ using Tekla.Structures;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
 
-namespace RebarPhasesManager.Model
+namespace RebarPhaseManager.Model
 {
     partial class MainModel
     {
@@ -39,24 +39,7 @@ namespace RebarPhasesManager.Model
             {
                 foreach (Reinforcement rebar in rebarsSelector)
                 {
-                    Phase phase = rebar.WhatIsMyPhase();
-                    int index = PhaseItemsList.Count();
-                    for (int i = 0; i < index; i++)
-                    {
-                        if (phase.PhaseNumber == PhaseItemsList[i].Phase.PhaseNumber)
-                        {
-                            if (PhaseItemsList[i].ContainsRebar(rebar))
-                                break;
-                            else
-                            {
-                                PhaseItemsList[i].AddRebar(rebar);
-                                break;
-                            }
-                        }
-                        else
-                            if (i == index-1)
-                                AddPhaseItem(phase, new List<Reinforcement>() { rebar });
-                    }
+                    AddRebar(rebar, rebar.WhatIsMyPhase());
                 }
             }
             else
@@ -65,31 +48,64 @@ namespace RebarPhasesManager.Model
             }
         }
 
+        public void AddRebar(Reinforcement rebar, Phase phase)
+        {
+            int index = PhaseItemsList.Count();
+            for (int i = 0; i < index; i++)
+            {
+                if (phase.PhaseNumber == PhaseItemsList[i].Phase.PhaseNumber)
+                {
+                    if (PhaseItemsList[i].ContainsRebar(rebar))
+                        break;
+                    else
+                    {
+                        PhaseItemsList[i].AddRebar(rebar);
+                        break;
+                    }
+                }
+                else
+                    if (i == index - 1)
+                    AddPhaseItem(phase, new List<Reinforcement>() { rebar });
+            }
+        }
+
         public void RemoveRebars()
         {
             foreach (Reinforcement rebar in rebarsSelector)
             {
-                Phase phase = rebar.WhatIsMyPhase();
-                int index = PhaseItemsList.Count();
-                for (int i = 0; i < index; i++)
-                {
-                    if (phase.PhaseNumber == PhaseItemsList[i].Phase.PhaseNumber)
-                        if (PhaseItemsList[i].RemoveRebar(rebar))
-                        break;                        
-                }
+                RemoveRebar(rebar, rebar.WhatIsMyPhase());
             }
         }
 
-        public void ModifyPhase()
+        public void RemoveRebar(Reinforcement rebar, Phase phase)
         {
-
+            int index = PhaseItemsList.Count();
+            for (int i = 0; i < index; i++)
+            {
+                if (phase.PhaseNumber == PhaseItemsList[i].Phase.PhaseNumber)
+                    if (PhaseItemsList[i].RemoveRebar(rebar))
+                        break;
+            }
         }
 
-        public void SelectByPhase()
+        public void SelectByPhase(PhaseItem selectedPhaseItem)
         {
-            rebarsSelector.SelectRebars(new ArrayList(SelectedPhaseItem.RebarList));
+            rebarsSelector.SelectRebars(new ArrayList(selectedPhaseItem.RebarList));
         }
 
+        public void ModifyPhase(PhaseItem selectedPhaseItem)
+        {
+            foreach (Reinforcement rebar in rebarsSelector)
+            {
+                Phase phase = rebar.WhatIsMyPhase();
+                if (rebar.SetPhase(selectedPhaseItem.Phase))
+                {
+                    RemoveRebar(rebar, phase);
+                    AddRebar(rebar, rebar.WhatIsMyPhase());
+                }
+            }
+        }
+ 
         public void AddPhaseItem(Phase phase, List<Reinforcement> rebarList)
         {
             PhaseItemsList.Add(new PhaseItem(phase, colors.Dequeue(), rebarList));

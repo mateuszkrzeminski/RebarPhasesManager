@@ -1,12 +1,12 @@
-﻿<Window x:Class="RebarPhasesManager.MainWindow"
+﻿<Window x:Class="RebarPhaseManager.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:RebarPhasesManager"
-        xmlns:viewmodel="clr-namespace:RebarPhasesManager.ViewModel"
+        xmlns:local="clr-namespace:RebarPhaseManager"
+        xmlns:viewmodel="clr-namespace:RebarPhaseManager.ViewModel"
         mc:Ignorable="d"
-        Title="Rebar Phases Manager"
+        Title="Rebar Phase Manager"
         Width="700" MinWidth="700" MaxWidth="1000"
         Height="350" MinHeight="350" MaxHeight="800">
     <Window.Resources>
@@ -26,10 +26,10 @@
 
         <DataGrid x:Name="dataGrid" ItemsSource="{Binding PhaseItemsViewModelList}"
                   AutoGenerateColumns="False"
-                  VerticalGridLinesBrush="LightGray" BorderBrush="LightGray"
-                  FontSize="11" RowHeight="25" GridLinesVisibility="Vertical"
-                  ColumnWidth="*" Height="Auto" VerticalAlignment="Top"
-                  SelectionMode="Single" ColumnHeaderHeight="28">
+                  VerticalGridLinesBrush="LightGray" BorderBrush="LightGray" GridLinesVisibility="Vertical"
+                  FontSize="11" RowHeight="25" ColumnHeaderHeight="28" ColumnWidth="*" Height="Auto" 
+                  VerticalAlignment="Top"
+                  SelectionMode="Single" SelectedItem="{Binding SelectedPhaseItem}">
 
             <DataGrid.RowStyle>
                 <Style TargetType="{x:Type DataGridRow}">
