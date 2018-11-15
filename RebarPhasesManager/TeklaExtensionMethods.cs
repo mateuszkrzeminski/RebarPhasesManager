@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Tekla.Structures.Model;
 
 
-namespace RebarPhaseManager.Model
+namespace RebarPhaseManager
 {
     public static class TeklaExtensionMethods
     {
@@ -18,14 +18,14 @@ namespace RebarPhaseManager.Model
             else return null;
         }
 
-        public static string WhatIsMyUserComment(this Phase phase, Dictionary<string, string> phaseCodes)
+        public static string WhatIsMyUserComment(this Phase phase)
         {
             string comment;
             string number = phase.PhaseNumber.ToString();
             string last2Char = number.Substring(Math.Max(0, number.Length - 2));
             try
             {
-                comment = phaseCodes[last2Char];
+                comment = Data.PhaseCodes[last2Char];
             }
             catch (KeyNotFoundException)
             {

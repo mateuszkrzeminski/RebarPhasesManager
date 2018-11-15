@@ -79,7 +79,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AllCheckBox.cs" />
     <Compile Include="Converters.cs" />
+    <Compile Include="Data.cs" />
     <Compile Include="Model\MainModel.cs" />
     <Compile Include="Model\RebarsSelector.cs" />
     <Compile Include="Model\RebarVisualizator.cs" />
@@ -101,9 +103,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\TeklaExtensionMethods.cs" />
+    <Compile Include="TeklaExtensionMethods.cs" />
     <Compile Include="Model\TeklaConnector.cs" />
-    <Compile Include="Model\Data.cs" />
     <Compile Include="Model\PhaseItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

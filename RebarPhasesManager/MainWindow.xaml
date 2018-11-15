@@ -45,7 +45,7 @@
                 <DataGridCheckBoxColumn MinWidth="60" Width="60" Binding="{Binding Visible, UpdateSourceTrigger=PropertyChanged}">
                     <DataGridCheckBoxColumn.HeaderTemplate>
                         <DataTemplate>
-                            <CheckBox IsChecked="{Binding Source={StaticResource mainViewModel}, Path=AllVisible}">Visible</CheckBox>
+                            <local:AllCheckBox IsChecked="{Binding Source={StaticResource mainViewModel}, Path=AllVisible}" InvertCheckStateOrder="{Binding Source={StaticResource mainViewModel}, Path=InvertAllChbx}">Visible</local:AllCheckBox>
                         </DataTemplate>
                     </DataGridCheckBoxColumn.HeaderTemplate>
                 </DataGridCheckBoxColumn>

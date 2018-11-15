@@ -5,7 +5,7 @@ using System.Linq;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
 
-namespace RebarPhaseManager.Model
+namespace RebarPhaseManager
 {
     public static class Data
     {

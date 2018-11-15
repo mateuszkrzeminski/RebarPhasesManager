@@ -19,6 +19,7 @@ namespace RebarPhaseManager.ViewModel
         public MainViewModel()
         {
             _mainModel.PhaseItemsList.CollectionChanged += phaseItemListSynchronization;
+            RecheckAllSelected();
         }
         #endregion
 
@@ -38,14 +39,26 @@ namespace RebarPhaseManager.ViewModel
             set
             {
                 if (allVisible != value)
+                {
                     allVisible = value;
-                AllSelectedChanged();
-                OnPropertyChanged("AllVisible");
+                    AllSelectedChanged();
+                    OnPropertyChanged("AllVisible");
+                }
+            }
+        }
+
+        public bool InvertAllChbx
+        {
+            get
+            {
+                if (PhaseItemsViewModelList.Count(p => p.Visible) <= PhaseItemsViewModelList.Count(p => !p.Visible))
+                    return true;
+                else return false;
             }
         }
         #endregion
 
-            #region Commands
+        #region Commands
         private ICommand addRebars;
         public ICommand AddRebars
         {
@@ -129,7 +142,10 @@ namespace RebarPhaseManager.ViewModel
                 else if (PhaseItemsViewModelList.All(p => !p.Visible))
                     AllVisible = false;
                 else
+                {
                     AllVisible = null;
+                    OnPropertyChanged("InvertAllChbx");
+                }
             }
             finally
             {
