@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
         xmlns:local="clr-namespace:RebarPhaseManager"
         xmlns:viewmodel="clr-namespace:RebarPhaseManager.ViewModel"
         mc:Ignorable="d"
@@ -11,8 +12,12 @@
         Height="350" MinHeight="350" MaxHeight="800">
     <Window.Resources>
         <viewmodel:MainViewModel x:Key="mainViewModel"/>
+        <CollectionViewSource x:Key="cvsPhaseItemsViewModelList" Source="{Binding Source={StaticResource mainViewModel}, Path=PhaseItemsViewModelList}">
+            <CollectionViewSource.SortDescriptions>
+                <scm:SortDescription PropertyName="Number"/>
+            </CollectionViewSource.SortDescriptions>
+        </CollectionViewSource>
         <local:TeklaColorToColorConverter x:Key="colorConverter"/>
-        <local:HiddenRowConverter x:Key="hiddenConverter"/>
     </Window.Resources>
 
     <Grid DataContext="{StaticResource mainViewModel}">
@@ -24,22 +29,12 @@
             <ColumnDefinition Width="120"/>
         </Grid.ColumnDefinitions>
 
-        <DataGrid x:Name="dataGrid" ItemsSource="{Binding PhaseItemsViewModelList}"
+        <DataGrid x:Name="dataGrid" ItemsSource="{Binding Source={StaticResource cvsPhaseItemsViewModelList}}"
                   AutoGenerateColumns="False"
                   VerticalGridLinesBrush="LightGray" BorderBrush="LightGray" GridLinesVisibility="Vertical"
                   FontSize="11" RowHeight="25" ColumnHeaderHeight="28" ColumnWidth="*" Height="Auto" 
                   VerticalAlignment="Top"
                   SelectionMode="Single" SelectedItem="{Binding SelectedPhaseItem}">
-
-            <DataGrid.RowStyle>
-                <Style TargetType="{x:Type DataGridRow}">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding CountRebars, Converter={StaticResource hiddenConverter}}" Value="True">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </DataGrid.RowStyle>
 
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn MinWidth="60" Width="60" Binding="{Binding Visible, UpdateSourceTrigger=PropertyChanged}">
@@ -79,17 +74,17 @@
         <StackPanel Orientation="Vertical" Grid.Column="1">
             <GroupBox x:Name="rebarsGroupBox" Header="Analyzed rebars">
                 <StackPanel>
-                    <Button x:Name="buttonAdd" Content="Add" Command="{Binding AddRebars}"/>
+                    <Button x:Name="buttonAdd" Content="Add" Command="{Binding AddRebars}" />
                     <Button x:Name="buttonRemove" Content="Remove" Command="{Binding RemoveRebars}" />
                     <Button x:Name="buttonSelect" Content="Select by phase" Command="{Binding SelectByPhase}" />
                     <Button x:Name="buttonModify" Content="Modify phase" Command="{Binding ModifyPhase}" />
                 </StackPanel>
             </GroupBox>
 
-            <GroupBox x:Name="phaseGroupBox" Header="Phases">
+            <GroupBox x:Name="phaseGroupBox" Header="Phase items">
                 <StackPanel>
                     <Button x:Name="buttonAddToList" Content="Add to list" IsEnabled="False" />
-                    <Button x:Name="buttonRemoveFromList" Content="Remove from list" IsEnabled="False" />
+                    <Button x:Name="buttonRemoveFromList" Content="Remove from list" Command="{Binding RemovePhaseItem}" />
                 </StackPanel>
             </GroupBox>
 

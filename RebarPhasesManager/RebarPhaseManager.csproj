@@ -82,6 +82,7 @@
     <Compile Include="AllCheckBox.cs" />
     <Compile Include="Converters.cs" />
     <Compile Include="Data.cs" />
+    <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Model\MainModel.cs" />
     <Compile Include="Model\RebarsSelector.cs" />
     <Compile Include="Model\RebarVisualizator.cs" />

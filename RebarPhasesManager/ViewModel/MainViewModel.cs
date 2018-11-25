@@ -19,6 +19,7 @@ namespace RebarPhaseManager.ViewModel
         public MainViewModel()
         {
             _mainModel.PhaseItemsList.CollectionChanged += phaseItemListSynchronization;
+            PhaseItemsViewModelList.CollectionChanged += PhaseItemsViewModelList_CollectionChanged;
             RecheckAllSelected();
         }
         #endregion
@@ -101,6 +102,16 @@ namespace RebarPhaseManager.ViewModel
                 return modifyPhase;
             }
         }
+        private ICommand removePhaseItem;
+        public ICommand RemovePhaseItem
+        {
+            get
+            {
+                if (removePhaseItem == null)
+                    removePhaseItem = new RelayCommand(o => _mainModel.RemovePhaseItem(SelectedPhaseItem.PhaseItem), o => SelectedPhaseItem != null);
+                return removePhaseItem;
+            }
+        }
 
         #endregion
 
@@ -160,16 +171,30 @@ namespace RebarPhaseManager.ViewModel
                 case NotifyCollectionChangedAction.Add:
                     PhaseItem addedPhaseItem = (PhaseItem)e.NewItems[0];
                     if (addedPhaseItem != null)
-                    {
                         PhaseItemsViewModelList.Add(new PhaseItemViewModel(addedPhaseItem));
-                        PhaseItemsViewModelList.Last().PropertyChanged += VisibleOnPropertyChanged;
-                    }
                     break;
-                //case NotifyCollectionChangedAction.Remove:
-                //    PhaseItem removedPhaseItem = (PhaseItem)e.OldItems[0];
-                //    if (removedPhaseItem != null)
-                //        _PhaseItemsList.Remove(new PhaseItemViewModel(removedPhaseItem));
-                //    break;
+                case NotifyCollectionChangedAction.Remove:
+                    PhaseItem removedPhaseItem = (PhaseItem)e.OldItems[0];
+                    if (removedPhaseItem != null)
+                        PhaseItemsViewModelList.RemoveAll(p => p.PhaseItem == removedPhaseItem);
+                    break;
+            }
+        }
+
+        private void PhaseItemsViewModelList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    PhaseItemViewModel addedPhaseItem = (PhaseItemViewModel)e.NewItems[0];
+                    if (addedPhaseItem != null)
+                        addedPhaseItem.PropertyChanged += VisibleOnPropertyChanged;
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    PhaseItemViewModel removedPhaseItem = (PhaseItemViewModel)e.OldItems[0];
+                    if (removedPhaseItem != null)
+                        removedPhaseItem.PropertyChanged -= VisibleOnPropertyChanged;
+                    break;
             }
         }
 

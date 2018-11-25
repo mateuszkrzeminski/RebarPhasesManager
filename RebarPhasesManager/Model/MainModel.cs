@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Collections.Specialized;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -29,6 +30,7 @@ namespace RebarPhaseManager.Model
         public MainModel()
         {
             myModel = new Tekla.Structures.Model.Model();
+            PhaseItemsList.CollectionChanged += PhaseItemsList_CollectionChanged;
         }
         #endregion
 
@@ -110,7 +112,15 @@ namespace RebarPhaseManager.Model
         {
             PhaseItemsList.Add(new PhaseItem(phase, colors.Dequeue(), rebarList));
         }
-        
+
+        public void RemovePhaseItem(PhaseItem phaseItemToRemove)
+        {
+            if (phaseItemToRemove.RebarList.Count > 0)
+                RebarVisualizator.SetTempColor(phaseItemToRemove.RebarList, Data.NotAnalyzedColor);
+            colors.Enqueue(phaseItemToRemove.Color);
+            PhaseItemsList.Remove(phaseItemToRemove);
+        }
+
         private void createPhaseItemList()
         {
             IEnumerable<Reinforcement> selectedRebars = rebarsSelector.Cast<Reinforcement>();
@@ -118,8 +128,7 @@ namespace RebarPhaseManager.Model
             List<IGrouping<int, Reinforcement>> rebarsByPhase =
                 (from rebar in selectedRebars
                  let phase = rebar.WhatIsMyPhase()
-                 group rebar by phase.PhaseNumber)
-                 .OrderBy(o => o.Key).ToList();
+                 group rebar by phase.PhaseNumber).ToList();
 
             ModelObjectVisualization.SetTemporaryStateForAll(Data.NotAnalyzedColor);
 
@@ -129,6 +138,31 @@ namespace RebarPhaseManager.Model
             }
         }
 
+        private void PhaseItemsList_CollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            switch (e.Action)
+            {
+                case NotifyCollectionChangedAction.Add:
+                    PhaseItem addedPhaseItem = (PhaseItem)e.NewItems[0];
+                    if (addedPhaseItem != null)
+                        addedPhaseItem.NoOfRebarsChanged += NoOfRebarsChanged;
+                    break;
+                case NotifyCollectionChangedAction.Remove:
+                    PhaseItem removedPhaseItem = (PhaseItem)e.OldItems[0];
+                    if (removedPhaseItem != null)
+                        removedPhaseItem.NoOfRebarsChanged -= NoOfRebarsChanged;
+                    break;
+            }
+        }
+
+        private void NoOfRebarsChanged(object sender, EventArgs e)
+        {
+            PhaseItem phaseItem = (PhaseItem)sender;
+            if (phaseItem.CountRebars == 0)
+            {
+                RemovePhaseItem(phaseItem);
+            }
+        }
         #endregion
     }
 }
