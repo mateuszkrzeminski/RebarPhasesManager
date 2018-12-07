@@ -23,7 +23,7 @@ namespace RebarPhaseManager.Model
 
         #region Properties
         public ObservableCollection<PhaseItem> PhaseItemsList { get; private set; } = new ObservableCollection<PhaseItem>();
-        public PhaseItem SelectedPhaseItem { get; set; }
+        //public IList SelectedPhaseItems { get; set; }
         #endregion
 
         #region Construction
@@ -90,17 +90,25 @@ namespace RebarPhaseManager.Model
             }
         }
 
-        public void SelectByPhase(PhaseItem selectedPhaseItem)
+        public void SelectByPhase()
         {
-            rebarsSelector.SelectRebars(new ArrayList(selectedPhaseItem.RebarList));
+            ArrayList rebarsToSelect = new ArrayList();
+            foreach (PhaseItem phaseItem in PhaseItemsList)
+            {
+                if (phaseItem.Selected)
+                    rebarsToSelect.AddRange(phaseItem.RebarList);
+            }
+            if (rebarsToSelect.Count > 0)
+                rebarsSelector.SelectRebars(rebarsToSelect);
         }
 
-        public void ModifyPhase(PhaseItem selectedPhaseItem)
+        public void ModifyPhase()
         {
+            PhaseItem phaseItemToSet = PhaseItemsList.First(ph => ph.Selected);
             foreach (Reinforcement rebar in rebarsSelector)
             {
                 Phase phase = rebar.WhatIsMyPhase();
-                if (rebar.SetPhase(selectedPhaseItem.Phase))
+                if (rebar.SetPhase(phaseItemToSet.Phase))
                 {
                     RemoveRebar(rebar, phase);
                     AddRebar(rebar, rebar.WhatIsMyPhase());
@@ -113,12 +121,43 @@ namespace RebarPhaseManager.Model
             PhaseItemsList.Add(new PhaseItem(phase, colors.Dequeue(), rebarList));
         }
 
+        public void RemovePhaseItems()
+        {
+            List<PhaseItem> phaseItemsToRemove = (from ph in PhaseItemsList where ph.Selected == true select ph).ToList<PhaseItem>();
+
+            foreach (var phaseToRemove in phaseItemsToRemove)
+            {
+                RemovePhaseItem(phaseToRemove);
+            }
+        }
+
         public void RemovePhaseItem(PhaseItem phaseItemToRemove)
         {
             if (phaseItemToRemove.RebarList.Count > 0)
                 RebarVisualizator.SetTempColor(phaseItemToRemove.RebarList, Data.NotAnalyzedColor);
             colors.Enqueue(phaseItemToRemove.Color);
             PhaseItemsList.Remove(phaseItemToRemove);
+        }
+
+
+        public void SelectByRebars()
+        {
+            foreach (PhaseItem phaseItem in PhaseItemsList)
+            {
+                phaseItem.Selected = false;
+            }
+            foreach (Reinforcement rebar in rebarsSelector)
+            {
+                foreach (PhaseItem phaseItem in PhaseItemsList)
+                {
+                    if (rebar.WhatIsMyPhase().PhaseNumber == phaseItem.Phase.PhaseNumber)
+                        if (phaseItem.ContainsRebar(rebar))
+                        {
+                            phaseItem.Selected = true;
+                            break;
+                        }  
+                }
+            }
         }
 
         private void createPhaseItemList()
@@ -132,7 +171,7 @@ namespace RebarPhaseManager.Model
 
             ModelObjectVisualization.SetTemporaryStateForAll(Data.NotAnalyzedColor);
 
-            foreach (var phaseGroup in rebarsByPhase)
+            foreach (IGrouping<int, Reinforcement> phaseGroup in rebarsByPhase)
             {
                 AddPhaseItem(phaseGroup.First().WhatIsMyPhase(), phaseGroup.ToList<Reinforcement>());
             }
@@ -158,7 +197,7 @@ namespace RebarPhaseManager.Model
         private void NoOfRebarsChanged(object sender, EventArgs e)
         {
             PhaseItem phaseItem = (PhaseItem)sender;
-            if (phaseItem.CountRebars == 0)
+            if (phaseItem.RebarList.Count == 0)
             {
                 RemovePhaseItem(phaseItem);
             }

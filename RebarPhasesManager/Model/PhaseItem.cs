@@ -13,7 +13,7 @@ using Tekla.Structures.Model.UI;
 
 namespace RebarPhaseManager.Model
 {
-    class PhaseItem
+    class PhaseItem : ObservedObject
     {
         #region Construction
         public PhaseItem(Phase phase, Color teklaColor, List<Reinforcement> rebarsList)
@@ -27,6 +27,7 @@ namespace RebarPhaseManager.Model
 
         #region Members
         private bool visible = true;
+        private bool selected = false;
         #endregion
 
         #region Properties
@@ -44,9 +45,22 @@ namespace RebarPhaseManager.Model
                 }
             }
         }
+
+        public bool Selected
+        {
+            get { return selected; }
+            set
+            {
+                if (selected != value)
+                {
+                    selected = value;
+                    OnSelectedChanged();
+                }
+            }
+        }
+
         public Color Color { get; private set; }
         public List<Reinforcement> RebarList { get; private set; }
-        public int CountRebars { get { return RebarList.Count; } }
         #endregion
         
         #region Methods
@@ -102,6 +116,13 @@ namespace RebarPhaseManager.Model
         {
             if (NoOfRebarsChanged != null)
                 NoOfRebarsChanged(this, EventArgs.Empty);
+        }
+
+        public event EventHandler SelectedChanged;
+        protected virtual void OnSelectedChanged()
+        {
+            if (NoOfRebarsChanged != null)
+                SelectedChanged(this, EventArgs.Empty);
         }
         #endregion
 

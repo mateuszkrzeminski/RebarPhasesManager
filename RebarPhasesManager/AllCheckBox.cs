@@ -10,15 +10,14 @@ namespace RebarPhaseManager
 {
     class AllCheckBox : CheckBox
     {
+        public static readonly DependencyProperty InvertCheckStateOrderProperty =
+    DependencyProperty.Register("InvertCheckStateOrder", typeof(bool), typeof(AllCheckBox), new UIPropertyMetadata(false));
+
         public bool InvertCheckStateOrder
         {
             get { return (bool)GetValue(InvertCheckStateOrderProperty); }
             set { SetValue(InvertCheckStateOrderProperty, value); }
         }
-
-        // Using a DependencyProperty as the backing store for InvertCheckStateOrder.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty InvertCheckStateOrderProperty =
-            DependencyProperty.Register("InvertCheckStateOrder", typeof(bool), typeof(AllCheckBox), new UIPropertyMetadata(false));
 
         protected override void OnToggle()
         {

@@ -19,8 +19,10 @@ namespace RebarPhaseManager.ViewModel
         public PhaseItemViewModel(PhaseItem phaseItem)
         {
             _phaseItem = phaseItem;
-            _phaseItem.NoOfRebarsChanged += NoOfRebarsChanged;
+            _phaseItem.NoOfRebarsChanged += _phaseItem_NoOfRebarsChanged;
+            _phaseItem.SelectedChanged += _phaseItem_SelectedChanged;
         }
+
         #endregion
 
         #region Members
@@ -31,6 +33,18 @@ namespace RebarPhaseManager.ViewModel
 
         public PhaseItem PhaseItem { get { return _phaseItem; } }
 
+        public bool Selected
+        {
+            get { return _phaseItem.Selected; }
+            set
+            {
+                if (_phaseItem.Selected != value)
+                {
+                    _phaseItem.Selected = value;
+                    OnPropertyChanged("Selected");
+                }
+            }
+        }
         public bool Visible
         {
             get { return _phaseItem.Visible; }
@@ -52,9 +66,14 @@ namespace RebarPhaseManager.ViewModel
         public int CountRebars { get { return _phaseItem.RebarList.Count(); } }
         #endregion
 
-        private void NoOfRebarsChanged(object sender, EventArgs e)
+        private void _phaseItem_NoOfRebarsChanged(object sender, EventArgs e)
         {
             OnPropertyChanged("CountRebars");
+        }
+
+        private void _phaseItem_SelectedChanged(object sender, EventArgs e)
+        {
+            OnPropertyChanged("Selected");
         }
     }
 }

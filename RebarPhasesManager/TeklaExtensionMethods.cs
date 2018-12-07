@@ -35,7 +35,7 @@ namespace RebarPhaseManager
             if (phase.GetUserProperty("PHASE_COM", ref comment))
                 return comment;
             else
-                return "***";
+                return "****";
 
         }
     }

@@ -79,6 +79,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MyDataGrid.cs" />
     <Compile Include="AllCheckBox.cs" />
     <Compile Include="Converters.cs" />
     <Compile Include="Data.cs" />
@@ -87,7 +88,7 @@
     <Compile Include="Model\RebarsSelector.cs" />
     <Compile Include="Model\RebarVisualizator.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
-    <Compile Include="ViewModel\ObservedObject.cs" />
+    <Compile Include="ObservedObject.cs" />
     <Compile Include="ViewModel\PhaseItemViewModel.cs" />
     <Compile Include="ViewModel\RelayCommand.cs" />
     <Page Include="MainWindow.xaml">

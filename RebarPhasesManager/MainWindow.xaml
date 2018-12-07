@@ -21,20 +21,24 @@
     </Window.Resources>
 
     <Grid DataContext="{StaticResource mainViewModel}">
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="120"/>
         </Grid.ColumnDefinitions>
 
-        <DataGrid x:Name="dataGrid" ItemsSource="{Binding Source={StaticResource cvsPhaseItemsViewModelList}}"
+        <local:MyDataGrid x:Name="dataGrid" ItemsSource="{Binding Source={StaticResource cvsPhaseItemsViewModelList}}"
                   AutoGenerateColumns="False"
                   VerticalGridLinesBrush="LightGray" BorderBrush="LightGray" GridLinesVisibility="Vertical"
                   FontSize="11" RowHeight="25" ColumnHeaderHeight="28" ColumnWidth="*" Height="Auto" 
                   VerticalAlignment="Top"
-                  SelectionMode="Single" SelectedItem="{Binding SelectedPhaseItem}">
+                  SelectionMode="Extended" SelectionUnit="FullRow" 
+                  SelectedItemsList="{Binding SelectedPhaseItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Setter Property="IsSelected" Value="{Binding Selected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </Style>
+            </DataGrid.RowStyle>
 
             <DataGrid.Columns>
                 <DataGridCheckBoxColumn MinWidth="60" Width="60" Binding="{Binding Visible, UpdateSourceTrigger=PropertyChanged}">
@@ -69,22 +73,23 @@
                 <DataGridTextColumn Header="NoOfRebars"  Width="75" MinWidth="75"
                                     Binding="{Binding CountRebars, Mode=OneWay}"/>
             </DataGrid.Columns>
-        </DataGrid>
+        </local:MyDataGrid>
 
         <StackPanel Orientation="Vertical" Grid.Column="1">
             <GroupBox x:Name="rebarsGroupBox" Header="Analyzed rebars">
                 <StackPanel>
-                    <Button x:Name="buttonAdd" Content="Add" Command="{Binding AddRebars}" />
-                    <Button x:Name="buttonRemove" Content="Remove" Command="{Binding RemoveRebars}" />
-                    <Button x:Name="buttonSelect" Content="Select by phase" Command="{Binding SelectByPhase}" />
-                    <Button x:Name="buttonModify" Content="Modify phase" Command="{Binding ModifyPhase}" />
+                    <Button Content="Add" Command="{Binding AddRebars}" />
+                    <Button Content="Remove" Command="{Binding RemoveRebars}"/>
+                    <Button Content="Select by phase" Command="{Binding SelectByPhase}" />
+                    <Button Content="Modify phase" Command="{Binding ModifyPhase}" />
                 </StackPanel>
             </GroupBox>
 
             <GroupBox x:Name="phaseGroupBox" Header="Phase items">
                 <StackPanel>
-                    <Button x:Name="buttonAddToList" Content="Add to list" IsEnabled="False" />
-                    <Button x:Name="buttonRemoveFromList" Content="Remove from list" Command="{Binding RemovePhaseItem}" />
+                    <Button Content="Add to list" IsEnabled="False" />
+                    <Button Content="Remove from list" Command="{Binding RemovePhaseItem}" />
+                    <Button Content="Select by rebars" Command="{Binding SelectByRebars}" />
                 </StackPanel>
             </GroupBox>
 

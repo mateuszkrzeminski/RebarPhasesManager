@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -26,13 +27,27 @@ namespace RebarPhaseManager.ViewModel
 
         #region Members
         private MainModel _mainModel = new MainModel();
+        //private IList<PhaseItemViewModel> selectedPhaseItems;
         private bool? allVisible;
         private bool allVisibleChanging;
         #endregion
 
         #region Properties
         public ObservableCollection<PhaseItemViewModel> PhaseItemsViewModelList { get; } = new ObservableCollection<PhaseItemViewModel>();
-        public PhaseItemViewModel SelectedPhaseItem { private get; set; }
+        public IList SelectedPhaseItems { get; set; }
+    //    public IList SelectedPhaseItems
+    //{
+    //                set
+    //                {
+    //                    if (true)
+    //                    {
+    //                var elo = value.Cast<PhaseItemViewModel>();
+    //                        selectedPhaseItems = elo;
+    //                        AllSelectedChanged();
+    //                        OnPropertyChanged("AllVisible");
+    //                    }
+    //                }
+    //            }
 
         public bool? AllVisible
         {
@@ -77,7 +92,7 @@ namespace RebarPhaseManager.ViewModel
             get
             {
                 if (removeRebars == null)
-                    removeRebars = new RelayCommand(o => _mainModel.RemoveRebars());
+                    removeRebars = new RelayCommand(o => _mainModel.RemoveRebars(), o => PhaseItemsViewModelList.Count > 0);
                 return removeRebars;
             }
         }
@@ -88,7 +103,7 @@ namespace RebarPhaseManager.ViewModel
             get
             {
                 if (selectByPhase == null)
-                    selectByPhase = new RelayCommand(o => _mainModel.SelectByPhase(SelectedPhaseItem.PhaseItem), o => SelectedPhaseItem != null);
+                    selectByPhase = new RelayCommand(o => _mainModel.SelectByPhase(), o => SelectedPhaseItems != null);
                 return selectByPhase;
             }
         }
@@ -98,7 +113,7 @@ namespace RebarPhaseManager.ViewModel
             get
             {
                 if (modifyPhase == null)
-                    modifyPhase = new RelayCommand(o => _mainModel.ModifyPhase(SelectedPhaseItem.PhaseItem), o => SelectedPhaseItem != null);
+                    modifyPhase = new RelayCommand(o => _mainModel.ModifyPhase(), o => (SelectedPhaseItems != null && SelectedPhaseItems.Count == 1));
                 return modifyPhase;
             }
         }
@@ -108,8 +123,18 @@ namespace RebarPhaseManager.ViewModel
             get
             {
                 if (removePhaseItem == null)
-                    removePhaseItem = new RelayCommand(o => _mainModel.RemovePhaseItem(SelectedPhaseItem.PhaseItem), o => SelectedPhaseItem != null);
+                    removePhaseItem = new RelayCommand(o => _mainModel.RemovePhaseItems(), o => SelectedPhaseItems != null);
                 return removePhaseItem;
+            }
+        }
+        private ICommand selectByRebars;
+        public ICommand SelectByRebars
+        {
+            get
+            {
+                if (selectByRebars == null)
+                    selectByRebars = new RelayCommand(o => _mainModel.SelectByRebars(), o => PhaseItemsViewModelList.Count > 0);
+                return selectByRebars;
             }
         }
 
