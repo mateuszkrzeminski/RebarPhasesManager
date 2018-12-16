@@ -121,7 +121,7 @@ namespace RebarPhaseManager.Model
         public event EventHandler SelectedChanged;
         protected virtual void OnSelectedChanged()
         {
-            if (NoOfRebarsChanged != null)
+            if (SelectedChanged != null)
                 SelectedChanged(this, EventArgs.Empty);
         }
         #endregion

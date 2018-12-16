@@ -27,7 +27,6 @@ namespace RebarPhaseManager.ViewModel
 
         #region Members
         private MainModel _mainModel = new MainModel();
-        //private IList<PhaseItemViewModel> selectedPhaseItems;
         private bool? allVisible;
         private bool allVisibleChanging;
         #endregion
@@ -35,19 +34,9 @@ namespace RebarPhaseManager.ViewModel
         #region Properties
         public ObservableCollection<PhaseItemViewModel> PhaseItemsViewModelList { get; } = new ObservableCollection<PhaseItemViewModel>();
         public IList SelectedPhaseItems { get; set; }
-    //    public IList SelectedPhaseItems
-    //{
-    //                set
-    //                {
-    //                    if (true)
-    //                    {
-    //                var elo = value.Cast<PhaseItemViewModel>();
-    //                        selectedPhaseItems = elo;
-    //                        AllSelectedChanged();
-    //                        OnPropertyChanged("AllVisible");
-    //                    }
-    //                }
-    //            }
+
+        public IEnumerable PhaseCollection { get { return _mainModel.phaseCollection; } }
+        public IList SelectedFromPhaseCollection { get; set; }
 
         public bool? AllVisible
         {
@@ -117,6 +106,18 @@ namespace RebarPhaseManager.ViewModel
                 return modifyPhase;
             }
         }
+
+        private ICommand addPhaseItems;
+        public ICommand AddPhaseItems
+        {
+            get
+            {
+                if (addPhaseItems == null)
+                    addPhaseItems = new RelayCommand(o => _mainModel.AddPhaseItems(SelectedFromPhaseCollection), o => SelectedFromPhaseCollection != null);
+                return addPhaseItems;
+            }
+        }
+
         private ICommand removePhaseItem;
         public ICommand RemovePhaseItem
         {

@@ -79,9 +79,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="MyDataGrid.cs" />
-    <Compile Include="AllCheckBox.cs" />
-    <Compile Include="Converters.cs" />
+    <Compile Include="View\CommandDialogBox.cs" />
+    <Compile Include="View\MessageDialogBox.cs" />
+    <Compile Include="View\MyDataGrid.cs" />
+    <Compile Include="View\AllCheckBox.cs" />
+    <Compile Include="View\Converters.cs" />
     <Compile Include="Data.cs" />
     <Compile Include="ExtensionMethods.cs" />
     <Compile Include="Model\MainModel.cs" />
@@ -90,8 +92,9 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ObservedObject.cs" />
     <Compile Include="ViewModel\PhaseItemViewModel.cs" />
-    <Compile Include="ViewModel\RelayCommand.cs" />
-    <Page Include="MainWindow.xaml">
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="View\CustomContentDialogBox.cs" />
+    <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -99,7 +102,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>

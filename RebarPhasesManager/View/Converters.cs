@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 using Tekla.Structures.Model.UI;
 
-namespace RebarPhaseManager
+namespace RebarPhaseManager.View
 {
     public class TeklaColorToColorConverter : IValueConverter
     {

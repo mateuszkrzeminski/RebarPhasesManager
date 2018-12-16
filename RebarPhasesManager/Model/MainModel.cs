@@ -19,21 +19,22 @@ namespace RebarPhaseManager.Model
         private RebarsSelector rebarsSelector = new RebarsSelector();
         private Queue<Color> colors = new Queue<Color>(Data.TeklaColors);
         private Tekla.Structures.Model.Model myModel;
+        public PhaseCollection phaseCollection;
         #endregion
 
         #region Properties
         public ObservableCollection<PhaseItem> PhaseItemsList { get; private set; } = new ObservableCollection<PhaseItem>();
-        //public IList SelectedPhaseItems { get; set; }
         #endregion
 
         #region Construction
         public MainModel()
         {
             myModel = new Tekla.Structures.Model.Model();
+            phaseCollection = myModel.GetPhases();
             PhaseItemsList.CollectionChanged += PhaseItemsList_CollectionChanged;
         }
         #endregion
-
+            
         #region Methods
         public void AddRebars()
         {
@@ -115,7 +116,23 @@ namespace RebarPhaseManager.Model
                 }
             }
         }
- 
+
+        public void AddPhaseItems(IList phaseList)
+        {
+            foreach (var phase in phaseList)
+            {
+                if (phase is Phase)
+                {
+                    AddPhaseItem(phase as Phase);
+                }
+            }
+        }
+
+        public void AddPhaseItem(Phase phase)
+        {
+            PhaseItemsList.Add(new PhaseItem(phase, colors.Dequeue(), new List<Reinforcement>()));
+        }
+
         public void AddPhaseItem(Phase phase, List<Reinforcement> rebarList)
         {
             PhaseItemsList.Add(new PhaseItem(phase, colors.Dequeue(), rebarList));

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace RebarPhaseManager
+namespace RebarPhaseManager.View
 {
     class AllCheckBox : CheckBox
     {

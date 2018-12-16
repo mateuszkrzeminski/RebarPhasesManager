@@ -9,7 +9,7 @@ using System.Windows.Controls;
 
 using RebarPhaseManager.ViewModel;
 
-namespace RebarPhaseManager
+namespace RebarPhaseManager.View
 {
     class MyDataGrid : DataGrid
     {

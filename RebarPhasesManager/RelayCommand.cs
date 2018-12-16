@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Windows.Input;
 
-namespace RebarPhaseManager.ViewModel
+namespace RebarPhaseManager
 {
     public class RelayCommand : ICommand
     {
