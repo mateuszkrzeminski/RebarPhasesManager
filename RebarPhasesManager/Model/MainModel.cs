@@ -2,11 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using Tekla.Structures;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
@@ -68,7 +67,7 @@ namespace RebarPhaseManager.Model
                 }
                 else
                     if (i == index - 1)
-                    AddPhaseItem(phase, new List<Reinforcement>() { rebar });
+                    addPhaseItem(phase, new List<Reinforcement>() { rebar });
             }
         }
 
@@ -119,21 +118,22 @@ namespace RebarPhaseManager.Model
 
         public void AddPhaseItems(IList phaseList)
         {
-            foreach (var phase in phaseList)
+            foreach (var element in phaseList)
             {
-                if (phase is Phase)
+                Phase phase = element as Phase;
+                if (!PhaseItemsList.Any(ph => ph.Phase.PhaseNumber == phase.PhaseNumber))
                 {
-                    AddPhaseItem(phase as Phase);
+                    addPhaseItem(phase);
                 }
             }
         }
 
-        public void AddPhaseItem(Phase phase)
+        private void addPhaseItem(Phase phase)
         {
             PhaseItemsList.Add(new PhaseItem(phase, colors.Dequeue(), new List<Reinforcement>()));
         }
 
-        public void AddPhaseItem(Phase phase, List<Reinforcement> rebarList)
+        private void addPhaseItem(Phase phase, List<Reinforcement> rebarList)
         {
             PhaseItemsList.Add(new PhaseItem(phase, colors.Dequeue(), rebarList));
         }
@@ -141,8 +141,7 @@ namespace RebarPhaseManager.Model
         public void RemovePhaseItems()
         {
             List<PhaseItem> phaseItemsToRemove = (from ph in PhaseItemsList where ph.Selected == true select ph).ToList<PhaseItem>();
-
-            foreach (var phaseToRemove in phaseItemsToRemove)
+            foreach (PhaseItem phaseToRemove in phaseItemsToRemove)
             {
                 RemovePhaseItem(phaseToRemove);
             }
@@ -190,7 +189,7 @@ namespace RebarPhaseManager.Model
 
             foreach (IGrouping<int, Reinforcement> phaseGroup in rebarsByPhase)
             {
-                AddPhaseItem(phaseGroup.First().WhatIsMyPhase(), phaseGroup.ToList<Reinforcement>());
+                addPhaseItem(phaseGroup.First().WhatIsMyPhase(), phaseGroup.ToList<Reinforcement>());
             }
         }
 
