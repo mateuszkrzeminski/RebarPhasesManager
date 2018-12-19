@@ -1,0 +1,15 @@
+D:\GitRepo\RebarPhasesManager\RebarPhasesManager\bin\Debug\RebarPhaseManager.exe.config
+D:\GitRepo\RebarPhasesManager\RebarPhasesManager\bin\Debug\RebarPhaseManager.exe
+D:\GitRepo\RebarPhasesManager\RebarPhasesManager\bin\Debug\RebarPhaseManager.pdb
+D:\GitRepo\RebarPhasesManager\ObjDir\2017i\RebarPhaseManager\View\MainWindow.g.cs
+D:\GitRepo\RebarPhasesManager\ObjDir\2017i\RebarPhaseManager\App.g.cs
+D:\GitRepo\RebarPhasesManager\ObjDir\2017i\RebarPhaseManager\GeneratedInternalTypeHelper.g.cs
+D:\GitRepo\RebarPhasesManager\ObjDir\2017i\RebarPhaseManager\RebarPhaseManager_MarkupCompile.cache
+D:\GitRepo\RebarPhasesManager\ObjDir\2017i\RebarPhaseManager\RebarPhaseManager_MarkupCompile.lref
+D:\GitRepo\RebarPhasesManager\ObjDir\2017i\RebarPhaseManager\View\MainWindow.baml
+D:\GitRepo\RebarPhasesManager\ObjDir\2017i\RebarPhaseManager\RebarPhaseManager.g.resources
+D:\GitRepo\RebarPhasesManager\ObjDir\2017i\RebarPhaseManager\RebarPhaseManager.Properties.Resources.resources
+D:\GitRepo\RebarPhasesManager\ObjDir\2017i\RebarPhaseManager\RebarPhaseManager.csproj.GenerateResource.Cache
+D:\GitRepo\RebarPhasesManager\ObjDir\2017i\RebarPhaseManager\RebarPhaseManager.exe
+D:\GitRepo\RebarPhasesManager\ObjDir\2017i\RebarPhaseManager\RebarPhaseManager.pdb
+D:\GitRepo\RebarPhasesManager\ObjDir\2017i\RebarPhaseManager\RebarPhaseManager.csprojResolveAssemblyReference.cache
