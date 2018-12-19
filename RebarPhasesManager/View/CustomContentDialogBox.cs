@@ -38,6 +38,18 @@ namespace RebarPhaseManager.View
                     window.Content = WindowContent;
                     LastResult = window.ShowDialog();
                     window = null;
+                    switch (LastResult)
+                    {
+                        case true:
+                            ExecuteCommand(CommandTrue, CommandParameter);
+                            break;
+                        case false:
+                            ExecuteCommand(CommandFalse, CommandParameter);
+                            break;
+                        case null:
+                            ExecuteCommand(CommandNull, CommandParameter);
+                            break;
+                    }
                 }
 
             };
@@ -105,5 +117,44 @@ namespace RebarPhaseManager.View
             }
         }
 
+        public static DependencyProperty CommandTrueProperty = DependencyProperty.Register("CommandTrue", typeof(ICommand), typeof(CustomContentDialogBox));
+        public static DependencyProperty CommandFalseProperty = DependencyProperty.Register("CommandFalse", typeof(ICommand), typeof(CustomContentDialogBox));
+        public static DependencyProperty CommandNullProperty = DependencyProperty.Register("CommandNull", typeof(ICommand), typeof(CustomContentDialogBox));
+
+        public ICommand CommandTrue
+        {
+            get
+            {
+                return (ICommand)GetValue(CommandTrueProperty);
+            }
+            set
+            {
+                SetValue(CommandTrueProperty, value);
+            }
+        }
+
+        public ICommand CommandFalse
+        {
+            get
+            {
+                return (ICommand)GetValue(CommandFalseProperty);
+            }
+            set
+            {
+                SetValue(CommandFalseProperty, value);
+            }
+        }
+
+        public ICommand CommandNull
+        {
+            get
+            {
+                return (ICommand)GetValue(CommandNullProperty);
+            }
+            set
+            {
+                SetValue(CommandNullProperty, value);
+            }
+        }
     }
 }

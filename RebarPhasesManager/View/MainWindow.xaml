@@ -8,7 +8,7 @@
         xmlns:viewmodel="clr-namespace:RebarPhaseManager.ViewModel"
         mc:Ignorable="d"
         Title="Rebar Phase Manager"
-        Width="650" MinWidth="650" MaxWidth="1000"
+        Width="700" MinWidth="700" MaxWidth="1000"
         Height="350" MinHeight="350" MaxHeight="800">
     <Window.Resources>
         <viewmodel:MainViewModel x:Key="mainViewModel"/>
@@ -23,18 +23,17 @@
             <CollectionViewSource.GroupDescriptions>
                 <PropertyGroupDescription PropertyName="PhaseName"/>
             </CollectionViewSource.GroupDescriptions>
-            
         </CollectionViewSource>
 
         <view:TeklaColorToColorConverter x:Key="colorConverter"/>
         
-        <view:CustomContentDialogBox x:Key="phaseSelectionDialogBox" Caption="Select phase" WindowWidth="440" WindowHeight="160" >
+        <view:CustomContentDialogBox x:Key="phaseSelectionDialogBox" Caption="Select phase" WindowWidth="440" WindowHeight="160">
             <StackPanel Orientation="Vertical">
                 <view:MyDataGrid x:Name="phaseCollectionDataGrid" ItemsSource="{Binding Source={StaticResource cvsPhaseCollection}}"
-                  AutoGenerateColumns="False" Loaded="phaseCollectionDataGrid_Loaded" 
+                  AutoGenerateColumns="False"
                   VerticalGridLinesBrush="LightGray" BorderBrush="LightGray" GridLinesVisibility="Vertical"
                   FontSize="11" RowHeight="25" ColumnHeaderHeight="28" ColumnWidth="*" Height="Auto" 
-                  VerticalAlignment="Top" SelectionMode="Extended" SelectionUnit="FullRow" SelectedItem="null"
+                  VerticalAlignment="Top" SelectionMode="Extended" SelectionUnit="FullRow"
                   SelectedItemsList="{Binding Source={StaticResource mainViewModel}, Path=SelectedFromPhaseCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Number" Width="70" MinWidth="70"
@@ -62,7 +61,7 @@
                                                         </DockPanel>
                                                     </Expander.Header>
                                                     <Expander.Content>
-                                                        <ItemsPresenter/>
+                                                        <ItemsPresenter />
                                                     </Expander.Content>
                                                 </Expander>
                                             </ControlTemplate>
@@ -121,13 +120,13 @@
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Number" Width="70" MinWidth="70"
                                     Binding="{Binding Number, Mode=OneWay}"/>
-                <DataGridTextColumn Header="Name" Width="85" MinWidth="85"
+                <DataGridTextColumn Header="Name" Width="90" MinWidth="90"
                                     Binding="{Binding Name, Mode=OneWay}"/>
-                <DataGridTextColumn Header="Comment" MinWidth="50"
+                <DataGridTextColumn Header="Comment" MinWidth="100"
                                     Binding="{Binding Comment, Mode=OneWay}"/>
-                <DataGridTextColumn Header="Current"  Width="50" MinWidth="50"
+                <DataGridTextColumn Header="Current"  Width="55" MinWidth="55"
                                     Binding="{Binding Current, Mode=OneWay}"/>
-                <DataGridTextColumn Header="NoOfRebarItems"  Width="100" MinWidth="100"
+                <DataGridTextColumn Header="NoOfRebars"  Width="75" MinWidth="75"
                                     Binding="{Binding CountRebars, Mode=OneWay}"/>
             </DataGrid.Columns>
         </view:MyDataGrid>

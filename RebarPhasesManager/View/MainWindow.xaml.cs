@@ -26,13 +26,6 @@ namespace RebarPhaseManager.View
         {
             InitializeComponent();
         }
-
-        private void phaseCollectionDataGrid_Loaded(object sender, RoutedEventArgs e)
-        {
-            MyDataGrid mDG = sender as MyDataGrid;
-            mDG.SelectedItemsList = null;
-        }
-
     }
 
 }
