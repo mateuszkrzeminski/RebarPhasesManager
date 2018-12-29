@@ -5,6 +5,54 @@
              StartupUri="View/MainWindow.xaml"
              Exit="Application_Exit">
     <Application.Resources>
+        <SolidColorBrush x:Key="BckgrdClr01" Color="#FFF8F7FA" />
+        <SolidColorBrush x:Key="BckgrdClr02" Color="#FFE8E7EE" />
+        <SolidColorBrush x:Key="BckgrdClr03" Color="#FFDADAE2" />
+        <SolidColorBrush x:Key="BckgrdClr04" Color="#FFFEBE00" />
+
+        <SolidColorBrush x:Key="FrgrdClr01" Color="#FF363545" />
+        <SolidColorBrush x:Key="FrgrdClr02" Color="#FFC5C4CD" />
+        
+        <Style TargetType="Button">
+            <Setter Property="Height" Value="27" />
+            <Setter Property="Margin" Value="10,4" />
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="{StaticResource FrgrdClr02}" BorderThickness="1">
+                            <Border Name="border" Background="{TemplateBinding Background}" Padding="3">
+                                <Grid>
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Name="content"/>
+                                </Grid>
+                            </Border>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{StaticResource BckgrdClr03}"/>
+                                <Setter Property="Foreground" Value="{StaticResource FrgrdClr01}"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="False">
+                                <Setter Property="Background" Value="{StaticResource BckgrdClr02}"/>
+                                <Setter Property="Foreground" Value="{StaticResource FrgrdClr01}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="{StaticResource BckgrdClr04}"/>
+                                <Setter Property="Foreground" Value="{StaticResource FrgrdClr01}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Background" Value="{StaticResource BckgrdClr02}"/>
+                                <Setter Property="Foreground" Value="{StaticResource FrgrdClr02}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="{StaticResource BckgrdClr02}"/>
+        </Style>
 
     </Application.Resources>
 </Application>

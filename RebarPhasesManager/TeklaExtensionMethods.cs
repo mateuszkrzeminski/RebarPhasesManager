@@ -18,7 +18,7 @@ namespace RebarPhaseManager
             else return null;
         }
 
-        public static string WhatIsMyUserComment(this Phase phase)
+        public static string WhatIsMyComment(this Phase phase)
         {
             string comment;
             string number = phase.PhaseNumber.ToString();
@@ -35,7 +35,11 @@ namespace RebarPhaseManager
             if (phase.GetUserProperty("PHASE_COM", ref comment))
                 return comment;
             else
-                return "****";
+            {
+                comment = phase.PhaseComment;
+                return comment;
+            }
+                
 
         }
     }

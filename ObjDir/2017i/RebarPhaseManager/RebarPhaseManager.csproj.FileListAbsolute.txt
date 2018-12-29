@@ -13,3 +13,4 @@ D:\GitRepo\RebarPhasesManager\ObjDir\2017i\RebarPhaseManager\RebarPhaseManager.c
 D:\GitRepo\RebarPhasesManager\ObjDir\2017i\RebarPhaseManager\RebarPhaseManager.exe
 D:\GitRepo\RebarPhasesManager\ObjDir\2017i\RebarPhaseManager\RebarPhaseManager.pdb
 D:\GitRepo\RebarPhasesManager\ObjDir\2017i\RebarPhaseManager\RebarPhaseManager.csprojResolveAssemblyReference.cache
+D:\GitRepo\RebarPhasesManager\ObjDir\2017i\RebarPhaseManager\App.baml
