@@ -120,7 +120,7 @@ namespace RebarPhaseManager.ViewModel
                             SelectedFromPhaseCollection.Clear();
                             OnPropertyChanged("SelectedFromPhaseCollection");
                         },
-                        o => SelectedFromPhaseCollection.Count > 0);
+                        o => SelectedFromPhaseCollection != null && SelectedFromPhaseCollection.Count > 0);
                 return addPhaseItems;
             }
         }

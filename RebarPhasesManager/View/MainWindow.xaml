@@ -50,7 +50,7 @@
                                     Binding="{Binding IsCurrentPhase, Mode=OneWay}"/>
                     </DataGrid.Columns>
 
-                    <!--<DataGrid.GroupStyle>
+                    <DataGrid.GroupStyle>
                         <GroupStyle>
                             <GroupStyle.ContainerStyle>
                                 <Style TargetType="{x:Type GroupItem}">
@@ -74,7 +74,7 @@
                                 </Style>
                             </GroupStyle.ContainerStyle>
                         </GroupStyle>
-                    </DataGrid.GroupStyle>-->
+                    </DataGrid.GroupStyle>
                 </view:MyDataGrid>
                 <StackPanel Grid.Column="1">
                     <Button Content="Add" Margin="10" Command="{Binding Source={StaticResource mainViewModel}, Path=AddPhaseItems}"/>
