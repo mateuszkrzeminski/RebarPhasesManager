@@ -113,7 +113,14 @@ namespace RebarPhaseManager.ViewModel
             get
             {
                 if (addPhaseItems == null)
-                    addPhaseItems = new RelayCommand(o => _mainModel.AddPhaseItems(SelectedFromPhaseCollection), o => SelectedFromPhaseCollection != null);
+                    addPhaseItems = new RelayCommand(
+                        o =>
+                        {
+                            _mainModel.AddPhaseItems(SelectedFromPhaseCollection);
+                            SelectedFromPhaseCollection.Clear();
+                            OnPropertyChanged("SelectedFromPhaseCollection");
+                        },
+                        o => SelectedFromPhaseCollection.Count > 0);
                 return addPhaseItems;
             }
         }

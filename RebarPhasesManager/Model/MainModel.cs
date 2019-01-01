@@ -68,7 +68,7 @@ namespace RebarPhaseManager.Model
                 }
                 else
                     if (i == index - 1)
-                    AddPhaseItem(phase, new List<Reinforcement>() { rebar });
+                    AddPhaseItemWithRebars(phase, new List<Reinforcement>() { rebar });
             }
         }
 
@@ -130,10 +130,11 @@ namespace RebarPhaseManager.Model
 
         public void AddPhaseItem(Phase phase)
         {
-            PhaseItemsList.Add(new PhaseItem(phase, colors.Dequeue(), new List<Reinforcement>()));
+            if (!PhaseItemsList.Any(ph => ph.Phase.PhaseNumber == phase.PhaseNumber))
+                PhaseItemsList.Add(new PhaseItem(phase, colors.Dequeue(), new List<Reinforcement>()));
         }
 
-        public void AddPhaseItem(Phase phase, List<Reinforcement> rebarList)
+        public void AddPhaseItemWithRebars(Phase phase, List<Reinforcement> rebarList)
         {
             PhaseItemsList.Add(new PhaseItem(phase, colors.Dequeue(), rebarList));
         }
@@ -190,7 +191,7 @@ namespace RebarPhaseManager.Model
 
             foreach (IGrouping<int, Reinforcement> phaseGroup in rebarsByPhase)
             {
-                AddPhaseItem(phaseGroup.First().WhatIsMyPhase(), phaseGroup.ToList<Reinforcement>());
+                AddPhaseItemWithRebars(phaseGroup.First().WhatIsMyPhase(), phaseGroup.ToList<Reinforcement>());
             }
         }
 

@@ -8,8 +8,8 @@
         xmlns:viewmodel="clr-namespace:RebarPhaseManager.ViewModel"
         mc:Ignorable="d"
         Title="Rebar Phase Manager"
-        Width="650" MinWidth="650" MaxWidth="1000"
-        Height="500" MinHeight="300" MaxHeight="800">
+        Width="700" MinWidth="500" MaxWidth="1000"
+        Height="400" MinHeight="350" MaxHeight="800">
     <Window.Resources>
                 
         <viewmodel:MainViewModel x:Key="mainViewModel"/>
@@ -27,7 +27,7 @@
         </CollectionViewSource>
 
         <view:TeklaColorToColorConverter x:Key="colorConverter"/>
-        
+
         <view:CustomContentDialogBox x:Key="phaseSelectionDialogBox" Caption="Select phase" WindowWidth="500" WindowHeight="700">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -35,12 +35,10 @@
                     <ColumnDefinition Width="120"/>
                 </Grid.ColumnDefinitions>
                 
-                <view:MyDataGrid x:Name="phaseCollectionDataGrid" ItemsSource="{Binding Source={StaticResource cvsPhaseCollection}}"
-                  AutoGenerateColumns="False" CanUserDeleteRows="False"
-                  VerticalGridLinesBrush="LightGray" BorderBrush="LightGray" GridLinesVisibility="Vertical"
-                  FontSize="11" RowHeight="25" ColumnHeaderHeight="28" ColumnWidth="*" Height="Auto" 
-                  VerticalAlignment="Top" SelectionMode="Extended" SelectionUnit="FullRow"
-                  SelectedItemsList="{Binding Source={StaticResource mainViewModel}, Path=SelectedFromPhaseCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                <view:MyDataGrid x:Name="phaseCollectionDataGrid" 
+                                 ItemsSource="{Binding Source={StaticResource cvsPhaseCollection}}"
+                                 SelectedItemsList="{Binding Source={StaticResource mainViewModel}, Path=SelectedFromPhaseCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 Style="{StaticResource MyDataGridStyle}">
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="Number" Width="70" MinWidth="70"
                                     Binding="{Binding PhaseNumber, Mode=OneWay}"/>
@@ -48,11 +46,11 @@
                                     Binding="{Binding PhaseName, Mode=OneWay}"/>
                         <DataGridTextColumn Header="Comment" MinWidth="100"
                                     Binding="{Binding PhaseComment, Mode=OneWay}"/>
-                        <DataGridTextColumn Header="Current"  Width="55" MinWidth="55"
+                        <DataGridTextColumn Header="Current"  Width="*" MinWidth="55"
                                     Binding="{Binding IsCurrentPhase, Mode=OneWay}"/>
                     </DataGrid.Columns>
 
-                    <DataGrid.GroupStyle>
+                    <!--<DataGrid.GroupStyle>
                         <GroupStyle>
                             <GroupStyle.ContainerStyle>
                                 <Style TargetType="{x:Type GroupItem}">
@@ -76,9 +74,11 @@
                                 </Style>
                             </GroupStyle.ContainerStyle>
                         </GroupStyle>
-                    </DataGrid.GroupStyle>
+                    </DataGrid.GroupStyle>-->
                 </view:MyDataGrid>
-                <Button Grid.Column="1" Content="Add" Command="{Binding Source={StaticResource mainViewModel}, Path=AddPhaseItems}"/>
+                <StackPanel Grid.Column="1">
+                    <Button Content="Add" Margin="10" Command="{Binding Source={StaticResource mainViewModel}, Path=AddPhaseItems}"/>
+                </StackPanel>
             </Grid>
         </view:CustomContentDialogBox>
     </Window.Resources>
@@ -90,62 +90,61 @@
         </Grid.ColumnDefinitions>
 
             <view:MyDataGrid ItemsSource="{Binding Source={StaticResource cvsPhaseItemsViewModelList}}"
-                  VerticalGridLinesBrush="LightGray" BorderBrush="LightGray" GridLinesVisibility="Vertical"
-                  FontSize="11" RowHeight="25" ColumnHeaderHeight="28" ColumnWidth="*" Height="Auto" 
-                  VerticalAlignment="Top" AutoGenerateColumns="False"
-                  SelectionMode="Extended" SelectionUnit="FullRow" CanUserDeleteRows="False" 
-                  SelectedItemsList="{Binding SelectedPhaseItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+                             SelectedItemsList="{Binding SelectedPhaseItems, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource MyDataGridStyle}">
 
             <DataGrid.RowStyle>
-                <Style TargetType="{x:Type DataGridRow}">
+                <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource {x:Type DataGridRow}}">
                     <Setter Property="IsSelected" Value="{Binding Selected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </Style>
             </DataGrid.RowStyle>
 
             <DataGrid.Columns>
-                <DataGridCheckBoxColumn MinWidth="60" Width="60" Binding="{Binding Visible, UpdateSourceTrigger=PropertyChanged}">
+                <DataGridCheckBoxColumn MaxWidth="70" MinWidth="70" Width="70" ElementStyle="{StaticResource MyCheckBoxStyle}" Binding="{Binding Visible, UpdateSourceTrigger=PropertyChanged}" >
                     <DataGridCheckBoxColumn.HeaderTemplate>
                         <DataTemplate>
-                            <view:AllCheckBox IsChecked="{Binding Source={StaticResource mainViewModel}, Path=AllVisible}" 
-                                              InvertCheckStateOrder="{Binding Source={StaticResource mainViewModel}, Path=InvertAllChbx}">Visible</view:AllCheckBox>
+                            <view:AllCheckBox IsChecked="{Binding Source={StaticResource mainViewModel}, Path=AllVisible}"
+                                              InvertCheckStateOrder="{Binding Source={StaticResource mainViewModel}, Path=InvertAllChbx}"
+                                              Style="{StaticResource MyCheckBoxStyle}">Visible</view:AllCheckBox>
                         </DataTemplate>
                     </DataGridCheckBoxColumn.HeaderTemplate>
                 </DataGridCheckBoxColumn>
-                
 
-                <DataGridTemplateColumn Header="Color" Width="40" MinWidth="40">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <StackPanel>
-                                <StackPanel.Background>
+
+                <DataGridTemplateColumn Header="Color" Width="45" MinWidth="45" MaxWidth="45">
+                    <DataGridTemplateColumn.CellStyle>
+                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource DataGridCell}">
+                            <Setter Property="Background">
+                                <Setter.Value>
                                     <SolidColorBrush Color="{Binding Color, Converter={StaticResource colorConverter} }"/>
-                                </StackPanel.Background>
-                            </StackPanel>
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </DataGridTemplateColumn.CellStyle>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Number" Width="70" MinWidth="70"
-                                    Binding="{Binding Number, Mode=OneWay}"/>
-                <DataGridTextColumn Header="Name" Width="90" MinWidth="90"
+                
+                <DataGridTextColumn Header="Number" Width="80" MinWidth="80"
+                                    Binding="{Binding Number, Mode=OneWay}" />
+                <DataGridTextColumn Header="Name" Width="100" MinWidth="100"
                                     Binding="{Binding Name, Mode=OneWay}"/>
                 <DataGridTextColumn Header="Comment" MinWidth="100"
                                     Binding="{Binding Comment, Mode=OneWay}"/>
-                <DataGridTextColumn Header="Current"  Width="55" MinWidth="55"
+                <DataGridTextColumn Header="Current"  Width="65" MinWidth="65"
                                     Binding="{Binding Current, Mode=OneWay}"/>
-                <DataGridTextColumn Header="NoOfRebars"  Width="75" MinWidth="75"
+                <DataGridTextColumn Header="NoOfRebarItems"  Width="*" MinWidth="100"
                                     Binding="{Binding CountRebars, Mode=OneWay}"/>
             </DataGrid.Columns>
         </view:MyDataGrid>
 
-        <StackPanel Orientation="Vertical" Grid.Column="1" Background="{StaticResource BckgrdClr01}">
+        <StackPanel Orientation="Vertical" Grid.Column="1">
 
-            <TextBlock Text="Analyzed rebars" Margin="10,5,0,0" Foreground="{StaticResource FrgrdClr01}"/>
+            <TextBlock Text="Analyzed rebars" Margin="10,5,0,0" Foreground="{StaticResource Clr03}"/>
             <Button Content="Add" Command="{Binding AddRebars}" />
                 <Button Content="Remove" Command="{Binding RemoveRebars}"/>
                 <Button Content="Select by phase" Command="{Binding SelectByPhase}" />
                 <Button Content="Modify phase" Command="{Binding ModifyPhase}" />
 
-            <TextBlock Text="Phase items" Margin="10,5,0,0" Foreground="{StaticResource FrgrdClr01}"/>
+            <TextBlock Text="Phase items" Margin="10,5,0,0" Foreground="{StaticResource Clr03}"/>
             <Button Content="Add to list" Command="{Binding Source={StaticResource phaseSelectionDialogBox}, Path=Show}"/>
                 <Button Content="Remove from list" Command="{Binding RemovePhaseItem}" />
                 <Button Content="Select by rebars" Command="{Binding SelectByRebars}" />
