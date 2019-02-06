@@ -27,4 +27,34 @@ namespace RebarPhaseManager.View
             throw new NotImplementedException();
         }
     }
+
+    public class PhaseCurrentStatusConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Int32 status = (Int32)value;
+            if (status == 1)
+                return "YES";
+            return "";
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class PhaseCommentConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            Tekla.Structures.Model.Phase phase = value as Tekla.Structures.Model.Phase;
+            return phase.WhatIsMyComment();
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

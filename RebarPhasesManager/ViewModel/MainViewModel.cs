@@ -19,6 +19,7 @@ namespace RebarPhaseManager.ViewModel
         #region Construction
         public MainViewModel()
         {
+            _mainModel = new MainModel();
             _mainModel.PhaseItemsList.CollectionChanged += phaseItemListSynchronization;
             PhaseItemsViewModelList.CollectionChanged += PhaseItemsViewModelList_CollectionChanged;
             RecheckAllSelected();
@@ -26,7 +27,7 @@ namespace RebarPhaseManager.ViewModel
         #endregion
 
         #region Members
-        private MainModel _mainModel = new MainModel();
+        private MainModel _mainModel;
         private bool? allVisible;
         private bool allVisibleChanging;
         #endregion
@@ -96,6 +97,7 @@ namespace RebarPhaseManager.ViewModel
                 return selectByPhase;
             }
         }
+
         private ICommand modifyPhase;
         public ICommand ModifyPhase
         {
@@ -235,6 +237,11 @@ namespace RebarPhaseManager.ViewModel
         {
             if (args.PropertyName == nameof(PhaseItemViewModel.Visible))
                 RecheckAllSelected();
+        }
+
+        public void FinishWork()
+        {
+            _mainModel.FinishWorkWithTekla();
         }
         #endregion
 

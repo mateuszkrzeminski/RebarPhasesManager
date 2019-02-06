@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Collections.Specialized;
+using System.Windows;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,8 +31,15 @@ namespace RebarPhaseManager.Model
         public MainModel()
         {
             myModel = new Tekla.Structures.Model.Model();
-            phaseCollection = myModel.GetPhases();
-            PhaseItemsList.CollectionChanged += PhaseItemsList_CollectionChanged;
+            if (myModel.GetConnectionStatus())
+            {
+                phaseCollection = myModel.GetPhases();
+                PhaseItemsList.CollectionChanged += PhaseItemsList_CollectionChanged;
+            }
+            else
+            {
+                MessageBox.Show("Tekla Structures might not be open. Please run Tekla and restart RebarPhaseManager.");
+            }
         }
         #endregion
             
@@ -67,8 +75,21 @@ namespace RebarPhaseManager.Model
                     }
                 }
                 else
+                {
                     if (i == index - 1)
-                    AddPhaseItemWithRebars(phase, new List<Reinforcement>() { rebar });
+                    {
+                        try
+                        {
+                            AddPhaseItemWithRebars(phase, new List<Reinforcement>() { rebar });
+                        }
+                        catch (InvalidOperationException)
+                        {
+                            MessageBox.Show(Data.NoColorsAvailable);
+                            break;
+                        }
+                    }
+                }
+
             }
         }
 
@@ -123,7 +144,15 @@ namespace RebarPhaseManager.Model
             {
                 if (phase is Phase)
                 {
-                    AddPhaseItem(phase as Phase);
+                    try
+                    {
+                        AddPhaseItem(phase as Phase);
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        MessageBox.Show(Data.NoColorsAvailable);
+                        break;
+                    }
                 }
             }
         }
@@ -131,18 +160,17 @@ namespace RebarPhaseManager.Model
         public void AddPhaseItem(Phase phase)
         {
             if (!PhaseItemsList.Any(ph => ph.Phase.PhaseNumber == phase.PhaseNumber))
-                PhaseItemsList.Add(new PhaseItem(phase, colors.Dequeue(), new List<Reinforcement>()));
+                PhaseItemsList.Add(new PhaseItem(phase, colors.Dequeue(), new List<Reinforcement>()));     
         }
 
         public void AddPhaseItemWithRebars(Phase phase, List<Reinforcement> rebarList)
         {
-            PhaseItemsList.Add(new PhaseItem(phase, colors.Dequeue(), rebarList));
+                PhaseItemsList.Add(new PhaseItem(phase, colors.Dequeue(), rebarList));
         }
 
         public void RemovePhaseItems()
         {
             List<PhaseItem> phaseItemsToRemove = (from ph in PhaseItemsList where ph.Selected == true select ph).ToList<PhaseItem>();
-
             foreach (var phaseToRemove in phaseItemsToRemove)
             {
                 RemovePhaseItem(phaseToRemove);
@@ -191,7 +219,15 @@ namespace RebarPhaseManager.Model
 
             foreach (IGrouping<int, Reinforcement> phaseGroup in rebarsByPhase)
             {
-                AddPhaseItemWithRebars(phaseGroup.First().WhatIsMyPhase(), phaseGroup.ToList<Reinforcement>());
+                try
+                {
+                    AddPhaseItemWithRebars(phaseGroup.First().WhatIsMyPhase(), phaseGroup.ToList<Reinforcement>());
+                }
+                catch (InvalidOperationException)
+                {
+                    MessageBox.Show(Data.NoColorsAvailable);
+                    break;
+                }
             }
         }
 
@@ -220,6 +256,13 @@ namespace RebarPhaseManager.Model
                 RemovePhaseItem(phaseItem);
             }
         }
+
+        public void FinishWorkWithTekla()
+        {
+            if (myModel.GetConnectionStatus())
+                ModelObjectVisualization.ClearAllTemporaryStates();
+        }
         #endregion
     }
 }
+ 

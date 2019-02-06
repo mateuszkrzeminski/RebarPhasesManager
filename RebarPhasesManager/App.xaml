@@ -3,25 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:Themes="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
              xmlns:local="clr-namespace:RebarPhasesManager"
-             StartupUri="View/MainWindow.xaml"
-             Exit="Application_Exit">
+             StartupUri="View/MainWindow.xaml">
     <Application.Resources>
         <SolidColorBrush x:Key="Clr01" Color="White" />
         <SolidColorBrush x:Key="Clr02" Color="#FFB9B9BE" />
         <SolidColorBrush x:Key="Clr03" Color="#FF363545" />
-        <SolidColorBrush x:Key="Clr04" Color="#FFFEBE00" />
+        <SolidColorBrush x:Key="Clr04" Color="#FF7E7D8B" />
         <SolidColorBrush x:Key="Clr05" Color="#FF565A6B" />
-        
-
-
+        <SolidColorBrush x:Key="Clr06" Color="#FFFEBE00" />
+        <SolidColorBrush x:Key="Clr07" Color="#FFEBA113" />
+        <SolidColorBrush x:Key="Clr08" Color="#FFEB8D13" />
 
 
         <Style TargetType="{x:Type Button}">
             <Setter Property="Height" Value="27" />
             <Setter Property="Margin" Value="10,4" />
             <Setter Property="VerticalAlignment" Value="Top"/>
-            <Setter Property="Background" Value="{StaticResource Clr03}"/>
             <Setter Property="Foreground" Value="{StaticResource Clr01}"/>
+            <Setter Property="Background" Value="{StaticResource Clr03}"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -30,23 +29,21 @@
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Name="content"/>
                             </Border>
                         </Grid>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="{StaticResource Clr05}"/>
-                                <Setter Property="Foreground" Value="{StaticResource Clr01}"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" Value="{StaticResource Clr04}"/>
-                                <Setter Property="Foreground" Value="{StaticResource Clr03}"/>
-                            </Trigger>
-                            <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Background" Value="{StaticResource Clr02}"/>
-                                <Setter Property="Foreground" Value="{StaticResource Clr01}"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="{StaticResource Clr05}"/>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter Property="Background" Value="{StaticResource Clr06}"/>
+                    <Setter Property="Foreground" Value="{StaticResource Clr03}"/>
+                </Trigger>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Background" Value="{StaticResource Clr02}"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
         <Style x:Key="MyCheckBoxStyle" TargetType="{x:Type CheckBox}">
@@ -64,7 +61,7 @@
                 </Setter.Value>
             </Setter>
             <Setter Property="Background" Value="{StaticResource Clr01}"/>
-            <Setter Property="BorderBrush" Value="{StaticResource Clr03}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource Clr05}"/>
             <Setter Property="Foreground" Value="{StaticResource Clr03}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -79,8 +76,8 @@
                             </Grid.ColumnDefinitions>
                             <Border x:Name="checkBoxBorder" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
                                 <Grid x:Name="markGrid">
-                                    <Path x:Name="optionMark" Data="F1M9.97498,1.22334L4.6983,9.09834 4.52164,9.09834 0,5.19331 1.27664,3.52165 4.255,6.08833 8.33331,1.52588E-05 9.97498,1.22334z" Fill="{DynamicResource Clr03}" Margin="1" Opacity="0" Stretch="None"/>
-                                    <Rectangle x:Name="indeterminateMark" Fill="{StaticResource Clr03}" Margin="2" Opacity="0"/>
+                                    <Path x:Name="optionMark" Data="F1M9.97498,1.22334L4.6983,9.09834 4.52164,9.09834 0,5.19331 1.27664,3.52165 4.255,6.08833 8.33331,1.52588E-05 9.97498,1.22334z" Fill="{DynamicResource Clr05}" Margin="1" Opacity="0" Stretch="None"/>
+                                    <Rectangle x:Name="indeterminateMark" Fill="{StaticResource Clr05}" Margin="2" Opacity="0"/>
                                 </Grid>
                             </Border>
                             <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" Grid.Column="1" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
@@ -103,22 +100,19 @@
                                 <Setter Property="Padding" Value="4,-1,0,0"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" TargetName="checkBoxBorder" Value="{StaticResource Clr04}"/>
-                                <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{StaticResource Clr04}"/>
+                                <Setter Property="Background" TargetName="checkBoxBorder" Value="{StaticResource Clr01}"/>
+                                <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{StaticResource Clr03}"/>
                                 <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource Clr03}"/>
                                 <Setter Property="Fill" TargetName="indeterminateMark" Value="{StaticResource Clr03}"/>
                             </Trigger>
                             <Trigger Property="IsEnabled" Value="False">
-                                <Setter Property="Background" TargetName="checkBoxBorder" Value="#FFE6E6E6"/>
-                                <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="#FFBCBCBC"/>
-                                <Setter Property="Fill" TargetName="optionMark" Value="#FF707070"/>
-                                <Setter Property="Fill" TargetName="indeterminateMark" Value="#FF707070"/>
+                                <Setter Property="Background" TargetName="checkBoxBorder" Value="{StaticResource Clr01}"/>
+                                <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{StaticResource Clr06}"/>
+                                <Setter Property="Fill" TargetName="optionMark" Value="{StaticResource Clr06}"/>
+                                <Setter Property="Fill" TargetName="indeterminateMark" Value="{StaticResource Clr06}"/>
                             </Trigger>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter Property="Background" TargetName="checkBoxBorder" Value="#FFD9ECFF"/>
-                                <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="#FF3C77DD"/>
-                                <Setter Property="Fill" TargetName="optionMark" Value="#FF212121"/>
-                                <Setter Property="Fill" TargetName="indeterminateMark" Value="#FF212121"/>
+                                <Setter Property="BorderBrush" TargetName="checkBoxBorder" Value="{StaticResource Clr06}"/>
                             </Trigger>
                             <Trigger Property="IsChecked" Value="True">
                                 <Setter Property="Opacity" TargetName="optionMark" Value="1"/>
@@ -134,7 +128,6 @@
             </Setter>
         </Style>
 
-
         <Style x:Key="MyDataGridStyle" TargetType="{x:Type DataGrid}">
             <Setter Property="AutoGenerateColumns" Value="False"/>
             <Setter Property="CanUserAddRows" Value="False"/>
@@ -144,7 +137,12 @@
             <Setter Property="HeadersVisibility" Value="Column"/>
             <Setter Property="Background" Value="{StaticResource Clr01}"/>
             <Setter Property="Foreground" Value="{StaticResource Clr03}"/>
-            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Margin" Value="10" />
+            <Setter Property="BorderBrush" Value="{StaticResource Clr02}"/>
+            <Setter Property="VerticalAlignment" Value="Top" />
+            <Setter Property="MinHeight" Value="50" />
+
         </Style>
 
         <Style x:Key="ColumnHeaderGripperStyle" TargetType="{x:Type Thumb}">
@@ -160,8 +158,8 @@
             </Setter>
         </Style>
 
-        <Style TargetType="{x:Type DataGridColumnHeader}">
-            <Setter Property="Height" Value="28" />
+        <Style x:Key="DataGridColumnHeader" TargetType="{x:Type DataGridColumnHeader}">
+            <Setter Property="Height" Value="25" />
             <Setter Property="Background" Value="{StaticResource Clr02}" />
             <Setter Property="BorderThickness" Value="0,0,2,0" />
             <Setter Property="BorderBrush" Value="{StaticResource Clr01}" />
@@ -180,10 +178,11 @@
                                             Grid.Column="1"
                                             HorizontalAlignment="Right" VerticalAlignment="Center"                                           
                                             Width="8" Height="6" Margin="2,0,5,0"
-                                            Stretch="Fill" Opacity="0.5" Fill="{TemplateBinding Foreground}"
+                                            Stretch="Fill" Opacity="0.5" Fill="{StaticResource Clr05}"
                                             RenderTransformOrigin="0.5,0.4"
                                             Visibility="Collapsed"
-                                            Data="M0,0 L1,0 0.5,1 z" />
+                                            Data="M0,0 L1,0 0.5,1 z">
+                                    </Path>
                                 </Grid>
                             </Themes:DataGridHeaderBorder>
                             <Thumb x:Name="PART_LeftHeaderGripper" HorizontalAlignment="Left" Style="{StaticResource ColumnHeaderGripperStyle}"/>
@@ -201,15 +200,26 @@
                             <Trigger Property="SortDirection" Value="Descending">
                                 <Setter TargetName="SortArrow" Property="Visibility" Value="Visible" />
                             </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Fill" TargetName="SortArrow" Value="{StaticResource Clr03}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Fill" TargetName="SortArrow" Value="{StaticResource Clr06}"/>
+                            </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
 
+        <Style x:Key="DataGridLastColumnHeader" TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource DataGridColumnHeader}">
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+
         <Style x:Key="DataGridCell" TargetType="{x:Type DataGridCell}">
             <Setter Property="BorderThickness" Value="0,0,2,0" />
             <Setter Property="BorderBrush" Value="{StaticResource Clr02}" />
+            <Setter Property="Foreground" Value="{StaticResource Clr03}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type DataGridCell}">
@@ -227,7 +237,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-
+        
         <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource DataGridCell}">
             <Style.Triggers>
                 <Trigger Property="IsSelected" Value="True">
@@ -236,6 +246,14 @@
             </Style.Triggers>
         </Style>
 
+        <Style x:Key="DataGridLastCell" TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource DataGridCell}">
+            <Setter Property="BorderThickness" Value="0" />
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="Background" Value="{StaticResource Clr03}" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
 
         <Style TargetType="{x:Type DataGridRow}">
             <Setter Property="Height" Value="25" />
@@ -244,23 +262,21 @@
                     <Setter Property="Foreground" Value="{StaticResource Clr01}" />
                     <Setter Property="Background" Value="{StaticResource Clr05}" />
                 </Trigger>
-                
             </Style.Triggers>
         </Style>
-
-        <!--Scrollbar Thumbs--><!--
+        
         <Style x:Key="ScrollThumbs" TargetType="{x:Type Thumb}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Thumb}">
                         <Grid x:Name="Grid">
-                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Fill="Transparent" />
-                            <Border x:Name="Rectangle1" CornerRadius="10" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto"  Background="{TemplateBinding Background}" />
+                            <Rectangle HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto" Fill="{StaticResource Clr02}" />
+                            <Border x:Name="Rectangle1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Width="Auto" Height="Auto"  Background="{TemplateBinding Background}" />
                         </Grid>
                         <ControlTemplate.Triggers>
                             <Trigger Property="Tag" Value="Horizontal">
                                 <Setter TargetName="Rectangle1" Property="Width" Value="Auto" />
-                                <Setter TargetName="Rectangle1" Property="Height" Value="7" />
+                                <Setter TargetName="Rectangle1" Property="Height" Value="6" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -268,16 +284,14 @@
             </Setter>
         </Style>
 
-        --><!--ScrollBars--><!--
         <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
             <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
-            <Setter Property="Foreground" Value="LightGray" />
-            <Setter Property="Background" Value="DarkGray" />
-            <Setter Property="Width" Value="10" />
+            <Setter Property="Foreground" Value="{StaticResource Clr03}" />
+            <Setter Property="Background" Value="{StaticResource Clr02}" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type ScrollBar}">
-                        <Grid x:Name="GridRoot" Width="19" Background="{TemplateBinding Background}">
+                        <Grid x:Name="GridRoot" Width="8" Margin="0,5" Background="{TemplateBinding Background}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="0.00001*" />
                             </Grid.RowDefinitions>
@@ -317,8 +331,9 @@
                                         <RotateTransform Angle="-90" />
                                     </Setter.Value>
                                 </Setter>
+                                <Setter TargetName="GridRoot" Property="Margin" Value="5,0" />
                                 <Setter Property="Width" Value="Auto" />
-                                <Setter Property="Height" Value="12" />
+                                <Setter Property="Height" Value="8" />
                                 <Setter TargetName="Thumb" Property="Tag" Value="Horizontal" />
                                 <Setter TargetName="PageDown" Property="Command" Value="ScrollBar.PageLeftCommand" />
                                 <Setter TargetName="PageUp" Property="Command" Value="ScrollBar.PageRightCommand" />
@@ -327,7 +342,66 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-        </Style>-->
-        
+        </Style>
+
+        <Style x:Key="ExpanderStyle" TargetType="{x:Type Expander}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Expander">
+                        <Border Name="Border" Background="{StaticResource Clr02}" >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25"/>
+                                    <RowDefinition Name="ContentRow" Height="0"/>
+                                </Grid.RowDefinitions>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <ToggleButton IsChecked="{Binding Path=IsExpanded,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}">
+                                        <ToggleButton.Template>
+                                            <ControlTemplate TargetType="ToggleButton">
+                                                <Border Padding="6">
+                                                    <Path Name="Arrow" Fill="{StaticResource Clr05}" Data="M 3 0 L 3 12 L 9 6 Z" />
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="ToggleButton.IsMouseOver" Value="true">
+                                                        <Setter TargetName="Arrow" Property="Fill" Value="{StaticResource Clr03}" />
+                                                    </Trigger>
+                                                    <Trigger Property="IsPressed" Value="true">
+                                                        <Setter TargetName="Arrow" Property="Fill" Value="{StaticResource Clr06}" />
+                                                    </Trigger>
+                                                    <Trigger Property="IsChecked" Value="true">
+                                                        <Setter TargetName="Arrow" Property="Data" Value="M 0 3.5 L 12 3.5 L 6 9.5 Z" />
+                                                    </Trigger>
+                                                    <Trigger Property="IsEnabled" Value="False">
+                                                        <Setter TargetName="Arrow" Property="Opacity" Value="0.5" />
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </ToggleButton.Template>
+                                    </ToggleButton>
+                                    <ContentPresenter Grid.Column="1" Margin="3" ContentSource="Header" RecognizesAccessKey="True" />
+                                </Grid>
+
+                                <ContentPresenter Grid.Row="1"/>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsExpanded" Value="True">
+                                <Setter TargetName="ContentRow" Property="Height" Value="{Binding ElementName=Content,Path=DesiredHeight}" />
+                                <Setter TargetName="Border" Property="Background" Value="{StaticResource Clr06}"/>
+                                <Setter TargetName="Border" Property="BorderThickness" Value="0,0,0,2"/>
+                                <Setter TargetName="Border" Property="BorderBrush" Value="{StaticResource Clr06}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </Application.Resources>
 </Application>

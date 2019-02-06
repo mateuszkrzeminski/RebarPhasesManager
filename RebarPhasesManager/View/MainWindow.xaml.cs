@@ -26,6 +26,12 @@ namespace RebarPhaseManager.View
         {
             InitializeComponent();
         }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            ViewModel.MainViewModel mvm = FindResource("mainViewModel") as ViewModel.MainViewModel;
+            mvm.FinishWork();
+        }
     }
 
 }

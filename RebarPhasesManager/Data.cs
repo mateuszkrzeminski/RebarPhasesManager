@@ -14,7 +14,7 @@ namespace RebarPhaseManager
             new Color(1,0,0),           new Color(1,1,0),           new Color(0,1,0),           new Color(0.5,0,0.5),       new Color(0,0,1),           new Color(0.5,0.25,0),
             new Color(0.65,0.14,0.15),  new Color(1,0.55,0.1),      new Color(0.05,0.23,0.18),  new Color(0.56,0.15,0.25),  new Color(0.34,0.55,0.71),  new Color(0.49,0.36,0.22),
             new Color(0.88,0.37,0.12),  new Color(1,0.84,0.3),      new Color(0.75,0.89,0.73),  new Color(0.79,0.22,0.55),  new Color(0,0.06,0.46),     new Color(0.43,0.23,0.19),
-            new Color(0.78,0.09,0.07),  new Color(0.98,0.87,0.67),   new Color(0.2,0.47,0.33),   new Color(0.91,0.61,0.71),  new Color(0.49,0.8,0.74),   new Color(0.61,0.27,0.16),
+            new Color(0.78,0.09,0.07),  new Color(0.98,0.87,0.67),  new Color(0.2,0.47,0.33),   new Color(0.91,0.61,0.71),  new Color(0.49,0.8,0.74),   new Color(0.61,0.27,0.16),
             new Color(0.8,0.51,0.45),   new Color(0.99,0.74,0.12),  new Color(0.06,0.44,0.2),   new Color(0.39,0.24,0.61),  new Color(0.16,0.45,0.72),  new Color(0.52,0.22,0.17),
             new Color(0.85,0.4,0.46),   new Color(1,0.67,0.35),     new Color(0.14,0.57,0.25),  new Color(0.57,0.06,0.4),   new Color(0,0.03,0.31),     new Color(0.37,0.2,0.12),
             new Color(0.85,0.35,0.31),  new Color(0.89,0.64,0.16),  new Color(0.52,0.65,0.48),  new Color(0.22,0.04,0.18),  new Color(0.09,0.38,0.67),  new Color(0.39,0.24,0.14),
@@ -26,57 +26,7 @@ namespace RebarPhaseManager
         public static Color InvisibleColor = new Color(0.35, 0.35, 0.35);
         public static Color NotAnalyzedColor = new Color(0.25, 0.25, 0.25, 0.3);
 
-        public static Dictionary<string, string> PhaseCodes = new Dictionary<string, string>()
-        {
-            { "00", "CL" },
-            { "01", "F" },
-            { "02", "APTh" },
-            { "03", "APDe" },
+        public static string NoColorsAvailable = "No colors available. Another phase can not be added.";
 
-            { "04", "AD" },
-            { "05", "OLINK" },
-            { "06", "CLINK" },
-            { "07", "CO" },
-            { "08", "TB" },
-            { "09", "ST" },
-            { "10", "MESH" },
-
-            { "11", "NF0" },
-            { "12", "FF0" },
-            { "13", "TO0" },
-            { "14", "BO0" },
-            { "15", "S0" },
-
-            { "17", "POB" },
-            { "18", "RE" },
-
-            { "21", "NF1" },
-            { "22", "FF1" },
-            { "23", "TO1" },
-            { "24", "BO1" },
-            { "25", "S1" },
-
-            { "31", "NF2" },
-            { "32", "FF2" },
-            { "33", "TO2" },
-            { "34", "BO2" },
-            { "35", "S2" },
-
-            { "41", "NF3" },
-            { "42", "FF3" },
-            { "43", "TO3" },
-            { "44", "BO3" },
-            { "45", "S3" },
-
-            { "51", "NF4" },
-            { "52", "FF4" },
-            { "53", "TO4" },
-            { "54", "BO4" },
-            { "55", "S4" },
-
-            { "96", "Misc1" },
-            { "97", "Misc2" },
-            { "98", "Misc3" }
-        };
     }
 }

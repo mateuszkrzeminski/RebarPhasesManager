@@ -20,17 +20,7 @@ namespace RebarPhaseManager
 
         public static string WhatIsMyComment(this Phase phase)
         {
-            string comment;
-            string number = phase.PhaseNumber.ToString();
-            string last2Char = number.Substring(Math.Max(0, number.Length - 2));
-            try
-            {
-                comment = Data.PhaseCodes[last2Char];
-            }
-            catch (KeyNotFoundException)
-            {
-                return "***";
-            }
+            string comment = "";
 
             if (phase.GetUserProperty("PHASE_COM", ref comment))
                 return comment;
