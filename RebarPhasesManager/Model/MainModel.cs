@@ -2,12 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Collections.Specialized;
-using System.Windows;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Windows;
 using Tekla.Structures;
 using Tekla.Structures.Model;
 using Tekla.Structures.Model.UI;
@@ -50,7 +49,15 @@ namespace RebarPhaseManager.Model
             {
                 foreach (Reinforcement rebar in rebarsSelector)
                 {
-                    AddRebar(rebar, rebar.WhatIsMyPhase());
+                    try
+                    {
+                        AddRebar(rebar);
+                    }
+                    catch (InvalidOperationException)
+                    {
+                        MessageBox.Show(Data.NoColorsAvailable);
+                        break;
+                    }
                 }
             }
             else
@@ -59,12 +66,13 @@ namespace RebarPhaseManager.Model
             }
         }
 
-        public void AddRebar(Reinforcement rebar, Phase phase)
+        public void AddRebar(Reinforcement rebar)
         {
+            Phase rebarPhase = rebar.WhatIsMyPhase();
             int index = PhaseItemsList.Count();
             for (int i = 0; i < index; i++)
             {
-                if (phase.PhaseNumber == PhaseItemsList[i].Phase.PhaseNumber)
+                if (rebarPhase.PhaseNumber == PhaseItemsList[i].Phase.PhaseNumber)
                 {
                     if (PhaseItemsList[i].ContainsRebar(rebar))
                         break;
@@ -74,22 +82,10 @@ namespace RebarPhaseManager.Model
                         break;
                     }
                 }
-                else
+                else if (i == index - 1)
                 {
-                    if (i == index - 1)
-                    {
-                        try
-                        {
-                            AddPhaseItemWithRebars(phase, new List<Reinforcement>() { rebar });
-                        }
-                        catch (InvalidOperationException)
-                        {
-                            MessageBox.Show(Data.NoColorsAvailable);
-                            break;
-                        }
-                    }
+                    AddPhaseItemWithRebars(rebarPhase, new List<Reinforcement>() { rebar });
                 }
-
             }
         }
 
@@ -133,7 +129,7 @@ namespace RebarPhaseManager.Model
                 if (rebar.SetPhase(phaseItemToSet.Phase))
                 {
                     RemoveRebar(rebar, phase);
-                    AddRebar(rebar, rebar.WhatIsMyPhase());
+                    AddRebar(rebar);
                 }
             }
         }
@@ -184,7 +180,6 @@ namespace RebarPhaseManager.Model
             colors.Enqueue(phaseItemToRemove.Color);
             PhaseItemsList.Remove(phaseItemToRemove);
         }
-
 
         public void SelectByRebars()
         {
