@@ -18,7 +18,8 @@ The aim of this app is to group rebars (previously added to the application) by 
 * .NET Framework - version 4.5
 * TeklaOpenAPI - version 2017.1.10074
 
-## Screenshots
+## Screenshot
+![Example screenshot](./img/screenshot.JPG)
 
 ## Features
 * Add and remove rebars to application
