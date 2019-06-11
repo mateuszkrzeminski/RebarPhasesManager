@@ -1,5 +1,5 @@
 # RebarPhasesManager
-Tekla Structures Application, that allows the user to visualize and manage rebar phases.
+Tekla Structures application dedicated to rebars, which extends the capabilities of PhaseManager available by default in Tekla. It allows the user to easily visualize and manage rebar phases.
 
 ## Table of contents
 * [General info](#general-info)
@@ -10,7 +10,9 @@ Tekla Structures Application, that allows the user to visualize and manage rebar
 * [Contact](#contact)
 
 ## General info
-The aim of this app is to group rebars (previously added to the application) by phases and set a distinct color for each of them. Application window contains a list of phases with a color legend. It allows the user to manage phases of rebars and visualize them in Tekla to easy analyze correctness of data.
+An idea of this app is to group rebars (previously added to the application) by phases and set a distinct colour for each of them. Application window contains a list of phases with a colour marking and checkboxes to enable/disable phase visibility. Other objects are presented in Tekla as grey and semi-transparent. It allows the user to visualize by colour only selected phases. Thanks to that, it is possible to easily analyze the correctness of rebar phases. User can also manage phases of rebars the same as in the Phase Manager.
+
+manage phases of rebars and visualize them in Tekla to easy analyze correctness of data.
 
 ## Technologies
 * C#
